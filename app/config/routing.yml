@@ -1,0 +1,4 @@
+video_web:
+    resource: "@VideoWebBundle/Resources/config/routing.yml"
+    prefix:   /
+

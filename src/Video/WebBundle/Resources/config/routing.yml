@@ -1,0 +1,13 @@
+video_web_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: VideoWebBundle:Default:index }
+
+index:
+    path:     /
+    defaults: { _controller: VideoWebBundle:Play:index }
+
+show:
+    path:     /show/{video_id}
+    defaults: { _controller: VideoWebBundle:Play:show }
+    requirements:
+              video_id: \d+

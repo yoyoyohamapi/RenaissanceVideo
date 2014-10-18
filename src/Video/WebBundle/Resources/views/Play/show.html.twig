@@ -1,0 +1,27 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}VideoWebBundle:Play:show{% endblock %}
+{% block stylesheets %}
+ <link href="{{asset('bundles/videoweb/css/lesson.css')}}" rel="stylesheet" type="text/css"></link>
+<link href="{{asset('bundles/videoweb/css/jquery.mCustomScrollbar.css')}}" rel="stylesheet" type="text/css"></link>
+<link href="{{asset('bundles/videoweb/css/video-js.css')}}" rel="stylesheet" type="text/css"></link>
+{% endblock %}
+{% block body %}
+		<div class="row clearfix">
+			<!-- 课程播放部分 -->
+			<div class="col-md-11" >
+				<div class="conPanel coursePanel">
+					<video id="example_video_1" class="video-js vjs-default-skin vjs-big-play-centered"
+					  controls preload="auto" width="100%" height="100%"
+					  poster="{{asset('bundles/videoweb/img/playbkg.png')}}"
+					  data-setup='{"example_option":true}'>
+					 <!-- <source src="" type='video/mp4' /> -->
+					 <source src="{{asset('bundles/videoweb/video/1.mp4')}}" type='video/mp4' />
+					</video>
+				</div>
+			</div>
+		</div>
+{% endblock %}
+{% block scripts %}
+    
+{% endblock %}
