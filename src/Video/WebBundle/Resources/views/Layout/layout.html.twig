@@ -8,8 +8,17 @@
 		{% endblock %}
 	</head>
 	<body>
+		{% if no_top is defined %}
+		{% else %}
+		{% include "VideoWebBundle:Layout:top.html.twig" %}
+		{% endif %}
+		{% if no_filebar is defined %}
+		{% else %}
+		{{render(controller('VideoWebBundle:File:upload'))}}
+		{% endif %}
 		{% block content %}		    
 		{% endblock %}
 	</body>
 	{% block scripts %}
 	{% endblock %}
+</html>

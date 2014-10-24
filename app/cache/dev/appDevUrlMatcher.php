@@ -135,9 +135,17 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
-        // video_web_homepage
-        if (0 === strpos($pathinfo, '/hello') && preg_match('#^/hello/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
-            return $this->mergeDefaults(array_replace($matches, array('_route' => 'video_web_homepage')), array (  '_controller' => 'Video\\WebBundle\\Controller\\DefaultController::indexAction',));
+        if (0 === strpos($pathinfo, '/hello')) {
+            // video_common_homepage
+            if (preg_match('#^/hello/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'video_common_homepage')), array (  '_controller' => 'Video\\CommonBundle\\Controller\\DefaultController::indexAction',));
+            }
+
+            // video_web_homepage
+            if (preg_match('#^/hello/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'video_web_homepage')), array (  '_controller' => 'Video\\WebBundle\\Controller\\DefaultController::indexAction',));
+            }
+
         }
 
         // index
@@ -152,6 +160,24 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
         // show
         if (0 === strpos($pathinfo, '/show') && preg_match('#^/show/(?P<video_id>\\d+)$#s', $pathinfo, $matches)) {
             return $this->mergeDefaults(array_replace($matches, array('_route' => 'show')), array (  '_controller' => 'Video\\WebBundle\\Controller\\PlayController::showAction',));
+        }
+
+        // upload
+        if ($pathinfo === '/upload') {
+            return array (  '_controller' => 'Video\\WebBundle\\Controller\\FileController::uploadAction',  '_route' => 'upload',);
+        }
+
+        if (0 === strpos($pathinfo, '/d')) {
+            // download
+            if ($pathinfo === '/download') {
+                return array (  '_controller' => 'Video\\WebBundle\\Controller\\FileController::downloadAction',  '_route' => 'download',);
+            }
+
+            // delete
+            if ($pathinfo === '/delete') {
+                return array (  '_controller' => 'Video\\WebBundle\\Controller\\FileController::deleteAction',  '_route' => 'delete',);
+            }
+
         }
 
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();

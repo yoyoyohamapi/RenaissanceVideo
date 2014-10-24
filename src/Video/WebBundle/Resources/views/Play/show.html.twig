@@ -1,12 +1,11 @@
-{% extends "::base.html.twig" %}
-
+{% extends "VideoWebBundle:Layout:layout.html.twig" %}
 {% block title %}VideoWebBundle:Play:show{% endblock %}
 {% block stylesheets %}
  <link href="{{asset('bundles/videoweb/css/lesson.css')}}" rel="stylesheet" type="text/css"></link>
 <link href="{{asset('bundles/videoweb/css/jquery.mCustomScrollbar.css')}}" rel="stylesheet" type="text/css"></link>
 <link href="{{asset('bundles/videoweb/css/video-js.css')}}" rel="stylesheet" type="text/css"></link>
 {% endblock %}
-{% block body %}
+{% block content %}
 		<div class="row clearfix">
 			<!-- 课程播放部分 -->
 			<div class="col-md-11" >
@@ -23,5 +22,6 @@
 		</div>
 {% endblock %}
 {% block scripts %}
-    
+<script src="{{asset('bundles/videoweb/js/video.js')}}"></script> 
+<script src="{{asset('bundles/videoweb/js/coursePlay.js')}}"></script>  
 {% endblock %}

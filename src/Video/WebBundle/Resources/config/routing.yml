@@ -9,5 +9,17 @@ index:
 show:
     path:     /show/{video_id}
     defaults: { _controller: VideoWebBundle:Play:show }
+    methods: POST
     requirements:
               video_id: \d+
+upload:
+    path:     /upload
+    defaults: { _controller: VideoWebBundle:File:upload }
+
+download:
+    path:     /download
+    defaults: { _controller: VideoWebBundle:File:download }
+
+delete:
+    path:     /delete
+    defaults: { _controller: VideoWebBundle:File:delete }

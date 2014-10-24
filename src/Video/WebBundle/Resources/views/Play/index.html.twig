@@ -1,7 +1,15 @@
-{% extends "::base.html.twig" %}
+{% extends "VideoWebBundle:Layout:layout.html.twig" %}
 
 {% block title %}VideoWebBundle:Play:index{% endblock %}
 
-{% block body %}
-<h1>Welcome to the Play:index page</h1>
+{% block  content%}
+{% if videos | length>0 %}
+{% for video in videos %}
+    {{video.videoName}}
+    {{video.videoUrl}}
+    {{video.videoUptime| date("Y-m-d H:i")}}
+{% endfor %}
+{% else %}
+暂无视频上传
+{% endif %}
 {% endblock %}

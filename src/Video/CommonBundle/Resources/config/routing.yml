@@ -1,0 +1,11 @@
+video_common_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: VideoCommonBundle:Default:index }
+
+show:
+    path:     /course
+    defaults: { _controller: VideoCommonBundle:Course:show }
+
+show:
+    path:     /chapter
+    defaults: { _controller: VideoCommonBundle:Chapter:show }

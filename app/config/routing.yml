@@ -1,3 +1,7 @@
+video_common:
+    resource: "@VideoCommonBundle/Resources/config/routing.yml"
+    prefix:   /
+
 video_web:
     resource: "@VideoWebBundle/Resources/config/routing.yml"
     prefix:   /
