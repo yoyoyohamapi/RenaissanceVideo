@@ -10,16 +10,17 @@ class PlayController extends BaseController
         $repos=$this->getDoctrine()->getRepository('VideoCommonBundle:Video');
         $videos=$repos->findAll();
         $data=array(
-            "videos"=>$videos
+            "videos"=>$videos,
             );
         return $this->render('VideoWebBundle:Play:index.html.twig', $data); 
     }
-    public function createExurlAction(){
-
-    }
     public function showAction($video_id)
     {
-        return $this->render('VideoWebBundle:Play:show.html.twig', array(
-                // ...
-            ));    }
+        $repos=$this->getDoctrine()->getRepository('VideoCommonBundle:Video');
+        $video=$repos->find($video_id);
+        $data=array(
+            "video"=>$video,
+            );
+        return $this->render('VideoWebBundle:Play:show.html.twig', $data);
+    }
 }

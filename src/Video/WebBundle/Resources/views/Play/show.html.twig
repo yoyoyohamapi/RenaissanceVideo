@@ -12,10 +12,10 @@
 				<div class="conPanel coursePanel">
 					<video id="example_video_1" class="video-js vjs-default-skin vjs-big-play-centered"
 					  controls preload="auto" width="100%" height="100%"
-					  poster="{{asset('bundles/videoweb/img/playbkg.png')}}"
+					  poster="{{asset(video.VideoCover)}}"
 					  data-setup='{"example_option":true}'>
 					 <!-- <source src="" type='video/mp4' /> -->
-					 <source src="{{asset('bundles/videoweb/video/1.mp4')}}" type='video/mp4' />
+					 <source src="{{asset(video.VideoUrl)}}" type='video/mp4' />
 					</video>
 				</div>
 			</div>
@@ -25,3 +25,5 @@
 <script src="{{asset('bundles/videoweb/js/video.js')}}"></script> 
 <script src="{{asset('bundles/videoweb/js/coursePlay.js')}}"></script>  
 {% endblock %}
+{% set no_top = true %}
+{% set no_filebar = true %}

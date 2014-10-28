@@ -9,7 +9,7 @@ index:
 show:
     path:     /show/{video_id}
     defaults: { _controller: VideoWebBundle:Play:show }
-    methods: POST
+    methods: [POST]
     requirements:
               video_id: \d+
 upload:
@@ -23,3 +23,26 @@ download:
 delete:
     path:     /delete
     defaults: { _controller: VideoWebBundle:File:delete }
+course_show:
+    path:     /course
+    defaults: { _controller: VideoWebBundle:Course:show }
+
+chapter_show:
+    path:     /course/{course_id}/chapter
+    defaults: { _controller: VideoWebBundle:Chapter:show }
+    requirements:
+              course_id: \d+
+choice:
+    path:    /choice/{video_id}
+    defaults: {_controller: VideoWebBundle:Canvas:choice }
+    requirements:
+              video_id: \d+
+
+find_chapters:
+     path:   /findchapters
+     defaults: {_controller: VideoWebBundle:Canvas:findChapters }
+
+add_ex_url:
+    path:     /addExUrl
+    defaults: { _controller: VideoWebBundle:Canvas:addExUrl }
+    methods: [POST]

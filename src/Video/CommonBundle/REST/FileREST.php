@@ -1,5 +1,5 @@
 <?php
-namespace Renaissance\CommonBundle\REST;
+namespace Video\CommonBundle\REST;
 class FileREST extends BaseREST{
 
 	private function getAllFilesByCourseId($id){

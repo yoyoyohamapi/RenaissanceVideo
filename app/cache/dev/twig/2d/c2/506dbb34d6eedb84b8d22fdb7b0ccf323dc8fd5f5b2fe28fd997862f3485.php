@@ -52,13 +52,18 @@ class __TwigTemplate_2dc2506dbb34d6eedb84b8d22fdb7b0ccf323dc8fd5f5b2fe28fd997862
                 // line 10
                 echo twig_escape_filter($this->env, twig_date_format_filter($this->env, $this->getAttribute((isset($context["video"]) ? $context["video"] : $this->getContext($context, "video")), "videoUptime"), "Y-m-d H:i"), "html", null, true);
                 echo "
+    <a href=\"";
+                // line 11
+                echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("choice", array("video_id" => $this->getAttribute((isset($context["video"]) ? $context["video"] : $this->getContext($context, "video")), "id"))), "html", null, true);
+                echo "\">添加到canvas</a>
+    <br>
 ";
             }
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['video'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
         } else {
-            // line 13
+            // line 15
             echo "暂无视频上传
 ";
         }
@@ -76,6 +81,6 @@ class __TwigTemplate_2dc2506dbb34d6eedb84b8d22fdb7b0ccf323dc8fd5f5b2fe28fd997862
 
     public function getDebugInfo()
     {
-        return array (  62 => 13,  53 => 10,  49 => 9,  44 => 8,  40 => 7,  38 => 6,  35 => 5,  29 => 3,);
+        return array (  67 => 15,  57 => 11,  53 => 10,  49 => 9,  44 => 8,  40 => 7,  38 => 6,  35 => 5,  29 => 3,);
     }
 }

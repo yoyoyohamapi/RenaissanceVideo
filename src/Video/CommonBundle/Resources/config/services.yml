@@ -1,36 +1,36 @@
 parameters:
-    curlHelper.class:    Renaissance\CommonBundle\Tools\CurlHelper
+    curlHelper.class:    Video\CommonBundle\Tools\CurlHelper
     curlHelper.class.canvas_access_token:   IULKhnRJ2lVB5bza9NC70AUGnT9VtVaRgdt5737tlPhAGSMDVYcd7VBw9pfVR2GV
     curlHelper.class.base_url:   "https://canvas.example.com/api/v1/"
     curlHelper.class.authed:   FALSE
+    fileUpload.class:     Video\CommonBundle\Tools\FileUpload
+    fileUpload.class.base_upload_path:  "bundles/videoweb/"
 services:
     curlHelper:
         class:    "%curlHelper.class%"
         arguments:    ["%curlHelper.class.canvas_access_token%","%curlHelper.class.base_url%","%curlHelper.class.authed%"]
-    renaissance.twig.renaissance_extension:
-        class: Renaissance\CommonBundle\Twig\RenaissanceExtension
-        arguments:    [@service_container]
-        tags:
-            - { name: twig.extension }
     baseREST:
-        class: Renaissance\CommonBundle\REST\BaseREST
+        class: Video\CommonBundle\REST\BaseREST
         arguments: [@curlHelper,@service_container]
     courseREST:
-        class: Renaissance\CommonBundle\REST\CourseREST
+        class: Video\CommonBundle\REST\CourseREST
         parent: baseREST
     enrollmentREST:
-        class: Renaissance\CommonBundle\REST\EnrollmentREST
+        class: Video\CommonBundle\REST\EnrollmentREST
         parent: baseREST
     userREST:
-        class: Renaissance\CommonBundle\REST\UserREST
+        class: Video\CommonBundle\REST\UserREST
         parent: baseREST
     fileREST:
-        class: Renaissance\CommonBundle\REST\FileREST
+        class: Video\CommonBundle\REST\FileREST
         parent: baseREST
-    modulesREST:
-        class: Renaissance\CommonBundle\REST\ModulesREST
+    moduleREST:
+        class: Video\CommonBundle\REST\ModuleREST
         parent: baseREST
     pageREST:
-        class: Renaissance\CommonBundle\REST\PageREST
+        class: Video\CommonBundle\REST\PageREST
         parent: baseREST
+    fileUpload:
+        class:  "%fileUpload.class%"
+        arguments:  ["%fileUpload.class.base_upload_path%"]
 

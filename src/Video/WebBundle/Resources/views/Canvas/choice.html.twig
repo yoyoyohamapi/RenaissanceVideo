@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+{% if courses is defined %}
+<form action="{{path('add_ex_url')}}" method="post">
+<input id="video_id" name="video_id" value="{{video_id}}" type="hidden">
+<select id="courses" name="course_id" path="{{path('find_chapters')}}">
+  <option selected value="-1">--请选择课程--</option>
+  {% for course in courses %}
+ <option value="{{course.id}}">{{course.name}}</option>
+  {% endfor %}
+</select>
+<select id="chapters" name="chapter_id">
+<option selected value="-1">--请选择章节--</option>
+</select>
+课时名称
+<input id="lesson_name" name="lesson_name" type="text">
+<input id="submit" name="submit" type="submit" value="提交">
+</form>
+{% else %}
+    尚无课程可供选择!!
+{% endif %}
+</body>
+</html>
+<script type="text/javascript" src="{{asset('bundles/videoweb/js/jquery-1.11.1.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('bundles/videoweb/js/choice.js')}}"></script>

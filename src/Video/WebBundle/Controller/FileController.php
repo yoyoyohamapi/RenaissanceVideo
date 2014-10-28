@@ -5,33 +5,33 @@ namespace Video\WebBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Video\CommonBundle\Entity\Video;
 use Video\WebBundle\Controller\BaseController;
-use Video\CommonBundle\Tools\FileUpload;
 use Symfony\Component\HttpFoundation\Request;
 class FileController extends BaseController
 {
     public function uploadAction(Request $request)
     {
-        $document=new FileUpload();
-        $form=$this->createFormBuilder($document)
+        $form=$this->createFormBuilder()
             ->setAction($this->generateUrl('upload'))
-            ->add('file','file',array('label'=>' '))
-            ->add('save','submit')
+            ->add('video','file',array('label'=>'视频上传'))
+            ->add('cover','file',array('label'=>'封面上传'))
+            ->add('上传','submit')
             ->getForm();
         $form->handleRequest($request);
         if($form->isValid())
         {
-            $video=new Video();
-            $file_name=$document->getFileName();
-            $file_size=$document->getFileSize();
-            $file_type=$document->getFileType();
-            //$repository=$this->getDoctrine()->getRepository('VideoCommonBundle:Video');
+            $data=$form->getData();
+            $fileUpload=$this->get('fileUpload');
+            $fileUpload->setFile($data['video']);
+            $video_name=$fileUpload->getFileName();
+            $video_size=$fileUpload->getFileSize();
+            $video_type=$fileUpload->getFileType();
             $em=$this->getDoctrine()->getManager();
             $query=$em->createQuery(
                 'SELECT v.videoIndex 
                 FROM VideoCommonBundle:Video v
                 WHERE v.videoName = :filename
                 ORDER BY v.videoIndex'
-            )->setParameter('filename',$file_name);
+            )->setParameter('filename',$video_name);
             $indexes=$query->getResult();
             $len=count($indexes);
             for($i=0;$i<$len;$i++){
@@ -41,17 +41,24 @@ class FileController extends BaseController
                 }
             }
             if($i==$len)$index=$len;
-            $document->uploadFile($index);
-            $upload_url=$document->getUploadUrl($index);
+            $fileUpload->setUploadPath('video/');
+            $fileUpload->uploadFile($index);
+            $video_url=$fileUpload->getUploadUrl($index);
+            $fileUpload->setFile($data['cover']);
+            $fileUpload->setUploadPath('img/');
+            $fileUpload->uploadFile();
+            $cover_url=$fileUpload->getUploadUrl();
+            $video=new Video();
             $video->setVideoIndex($index);
-            $video->setVideoName($file_name);
-            $video->setVideoUrl($upload_url);
+            $video->setVideoName($video_name);
+            $video->setVideoUrl($video_url);
             //var_dump(getdate());
             $uptime=new \DateTime("now");
             //var_dump($uptime);
             $video->setVideoUptime($uptime);
-            $video->setVideoSize($file_size);
-            $video->setVideoType($file_type);
+            $video->setVideoSize($video_size);
+            $video->setVideoType($video_type);
+            $video->setVideoCover($cover_url);
             $em->persist($video);
             $em->flush();
             return $this->redirect($this->generateUrl('index'));

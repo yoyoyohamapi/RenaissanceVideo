@@ -1,5 +1,5 @@
 <?php
-namespace Renaissance\CommonBundle\REST;
+namespace Video\CommonBundle\REST;
 class UserREST extends BaseREST{
 	public function getUserProfile($user_id){
 		$this->api = "users/".$user_id."/profile";

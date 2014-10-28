@@ -73,6 +73,7 @@ class appDevDebugProjectContainer extends Container
             'file_locator' => 'getFileLocatorService',
             'filerest' => 'getFilerestService',
             'filesystem' => 'getFilesystemService',
+            'fileupload' => 'getFileuploadService',
             'form.csrf_provider' => 'getForm_CsrfProviderService',
             'form.factory' => 'getForm_FactoryService',
             'form.registry' => 'getForm_RegistryService',
@@ -125,7 +126,7 @@ class appDevDebugProjectContainer extends Container
             'kernel' => 'getKernelService',
             'locale_listener' => 'getLocaleListenerService',
             'logger' => 'getLoggerService',
-            'modulesrest' => 'getModulesrestService',
+            'modulerest' => 'getModulerestService',
             'monolog.handler.console' => 'getMonolog_Handler_ConsoleService',
             'monolog.handler.debug' => 'getMonolog_Handler_DebugService',
             'monolog.handler.main' => 'getMonolog_Handler_MainService',
@@ -143,7 +144,6 @@ class appDevDebugProjectContainer extends Container
             'profiler' => 'getProfilerService',
             'profiler_listener' => 'getProfilerListenerService',
             'property_accessor' => 'getPropertyAccessorService',
-            'renaissance.twig.renaissance_extension' => 'getRenaissance_Twig_RenaissanceExtensionService',
             'request' => 'getRequestService',
             'request_stack' => 'getRequestStackService',
             'response_listener' => 'getResponseListenerService',
@@ -364,11 +364,11 @@ class appDevDebugProjectContainer extends Container
      * This service is shared.
      * This method always returns the same instance of the service.
      *
-     * @return \Renaissance\CommonBundle\REST\BaseREST A Renaissance\CommonBundle\REST\BaseREST instance.
+     * @return \Video\CommonBundle\REST\BaseREST A Video\CommonBundle\REST\BaseREST instance.
      */
     protected function getBaserestService()
     {
-        return $this->services['baserest'] = new \Renaissance\CommonBundle\REST\BaseREST($this->get('curlhelper'), $this);
+        return $this->services['baserest'] = new \Video\CommonBundle\REST\BaseREST($this->get('curlhelper'), $this);
     }
 
     /**
@@ -408,11 +408,11 @@ class appDevDebugProjectContainer extends Container
      * This service is shared.
      * This method always returns the same instance of the service.
      *
-     * @return \Renaissance\CommonBundle\REST\CourseREST A Renaissance\CommonBundle\REST\CourseREST instance.
+     * @return \Video\CommonBundle\REST\CourseREST A Video\CommonBundle\REST\CourseREST instance.
      */
     protected function getCourserestService()
     {
-        return $this->services['courserest'] = new \Renaissance\CommonBundle\REST\CourseREST($this->get('curlhelper'), $this);
+        return $this->services['courserest'] = new \Video\CommonBundle\REST\CourseREST($this->get('curlhelper'), $this);
     }
 
     /**
@@ -421,11 +421,11 @@ class appDevDebugProjectContainer extends Container
      * This service is shared.
      * This method always returns the same instance of the service.
      *
-     * @return \Renaissance\CommonBundle\Tools\CurlHelper A Renaissance\CommonBundle\Tools\CurlHelper instance.
+     * @return \Video\CommonBundle\Tools\CurlHelper A Video\CommonBundle\Tools\CurlHelper instance.
      */
     protected function getCurlhelperService()
     {
-        return $this->services['curlhelper'] = new \Renaissance\CommonBundle\Tools\CurlHelper('IULKhnRJ2lVB5bza9NC70AUGnT9VtVaRgdt5737tlPhAGSMDVYcd7VBw9pfVR2GV', 'https://canvas.example.com/api/v1/', false);
+        return $this->services['curlhelper'] = new \Video\CommonBundle\Tools\CurlHelper('IULKhnRJ2lVB5bza9NC70AUGnT9VtVaRgdt5737tlPhAGSMDVYcd7VBw9pfVR2GV', 'https://canvas.example.com/api/v1/', false);
     }
 
     /**
@@ -751,11 +751,11 @@ class appDevDebugProjectContainer extends Container
      * This service is shared.
      * This method always returns the same instance of the service.
      *
-     * @return \Renaissance\CommonBundle\REST\EnrollmentREST A Renaissance\CommonBundle\REST\EnrollmentREST instance.
+     * @return \Video\CommonBundle\REST\EnrollmentREST A Video\CommonBundle\REST\EnrollmentREST instance.
      */
     protected function getEnrollmentrestService()
     {
-        return $this->services['enrollmentrest'] = new \Renaissance\CommonBundle\REST\EnrollmentREST($this->get('curlhelper'), $this);
+        return $this->services['enrollmentrest'] = new \Video\CommonBundle\REST\EnrollmentREST($this->get('curlhelper'), $this);
     }
 
     /**
@@ -777,11 +777,11 @@ class appDevDebugProjectContainer extends Container
      * This service is shared.
      * This method always returns the same instance of the service.
      *
-     * @return \Renaissance\CommonBundle\REST\FileREST A Renaissance\CommonBundle\REST\FileREST instance.
+     * @return \Video\CommonBundle\REST\FileREST A Video\CommonBundle\REST\FileREST instance.
      */
     protected function getFilerestService()
     {
-        return $this->services['filerest'] = new \Renaissance\CommonBundle\REST\FileREST($this->get('curlhelper'), $this);
+        return $this->services['filerest'] = new \Video\CommonBundle\REST\FileREST($this->get('curlhelper'), $this);
     }
 
     /**
@@ -795,6 +795,19 @@ class appDevDebugProjectContainer extends Container
     protected function getFilesystemService()
     {
         return $this->services['filesystem'] = new \Symfony\Component\Filesystem\Filesystem();
+    }
+
+    /**
+     * Gets the 'fileupload' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Video\CommonBundle\Tools\FileUpload A Video\CommonBundle\Tools\FileUpload instance.
+     */
+    protected function getFileuploadService()
+    {
+        return $this->services['fileupload'] = new \Video\CommonBundle\Tools\FileUpload('bundles/videoweb/');
     }
 
     /**
@@ -1498,16 +1511,16 @@ class appDevDebugProjectContainer extends Container
     }
 
     /**
-     * Gets the 'modulesrest' service.
+     * Gets the 'modulerest' service.
      *
      * This service is shared.
      * This method always returns the same instance of the service.
      *
-     * @return \Renaissance\CommonBundle\REST\ModulesREST A Renaissance\CommonBundle\REST\ModulesREST instance.
+     * @return \Video\CommonBundle\REST\ModuleREST A Video\CommonBundle\REST\ModuleREST instance.
      */
-    protected function getModulesrestService()
+    protected function getModulerestService()
     {
-        return $this->services['modulesrest'] = new \Renaissance\CommonBundle\REST\ModulesREST($this->get('curlhelper'), $this);
+        return $this->services['modulerest'] = new \Video\CommonBundle\REST\ModuleREST($this->get('curlhelper'), $this);
     }
 
     /**
@@ -1745,11 +1758,11 @@ class appDevDebugProjectContainer extends Container
      * This service is shared.
      * This method always returns the same instance of the service.
      *
-     * @return \Renaissance\CommonBundle\REST\PageREST A Renaissance\CommonBundle\REST\PageREST instance.
+     * @return \Video\CommonBundle\REST\PageREST A Video\CommonBundle\REST\PageREST instance.
      */
     protected function getPagerestService()
     {
-        return $this->services['pagerest'] = new \Renaissance\CommonBundle\REST\PageREST($this->get('curlhelper'), $this);
+        return $this->services['pagerest'] = new \Video\CommonBundle\REST\PageREST($this->get('curlhelper'), $this);
     }
 
     /**
@@ -1815,19 +1828,6 @@ class appDevDebugProjectContainer extends Container
     protected function getPropertyAccessorService()
     {
         return $this->services['property_accessor'] = new \Symfony\Component\PropertyAccess\PropertyAccessor();
-    }
-
-    /**
-     * Gets the 'renaissance.twig.renaissance_extension' service.
-     *
-     * This service is shared.
-     * This method always returns the same instance of the service.
-     *
-     * @return \Renaissance\CommonBundle\Twig\RenaissanceExtension A Renaissance\CommonBundle\Twig\RenaissanceExtension instance.
-     */
-    protected function getRenaissance_Twig_RenaissanceExtensionService()
-    {
-        return $this->services['renaissance.twig.renaissance_extension'] = new \Renaissance\CommonBundle\Twig\RenaissanceExtension($this);
     }
 
     /**
@@ -3072,7 +3072,6 @@ class appDevDebugProjectContainer extends Container
     {
         $this->services['twig'] = $instance = new \Twig_Environment($this->get('twig.loader'), array('debug' => true, 'strict_variables' => true, 'exception_controller' => 'twig.controller.exception:showAction', 'autoescape_service' => NULL, 'autoescape_service_method' => NULL, 'cache' => '/home/lsa2127291/myproject/ReinaissanceVideo/app/cache/dev/twig', 'charset' => 'UTF-8', 'paths' => array()));
 
-        $instance->addExtension($this->get('renaissance.twig.renaissance_extension'));
         $instance->addExtension(new \Symfony\Bundle\SecurityBundle\Twig\Extension\LogoutUrlExtension($this->get('templating.helper.logout_url')));
         $instance->addExtension(new \Symfony\Bridge\Twig\Extension\SecurityExtension($this->get('security.context', ContainerInterface::NULL_ON_INVALID_REFERENCE)));
         $instance->addExtension(new \Symfony\Bridge\Twig\Extension\TranslationExtension($this->get('translator')));
@@ -3179,11 +3178,11 @@ class appDevDebugProjectContainer extends Container
      * This service is shared.
      * This method always returns the same instance of the service.
      *
-     * @return \Renaissance\CommonBundle\REST\UserREST A Renaissance\CommonBundle\REST\UserREST instance.
+     * @return \Video\CommonBundle\REST\UserREST A Video\CommonBundle\REST\UserREST instance.
      */
     protected function getUserrestService()
     {
-        return $this->services['userrest'] = new \Renaissance\CommonBundle\REST\UserREST($this->get('curlhelper'), $this);
+        return $this->services['userrest'] = new \Video\CommonBundle\REST\UserREST($this->get('curlhelper'), $this);
     }
 
     /**
@@ -3661,10 +3660,13 @@ class appDevDebugProjectContainer extends Container
             'debug_toolbar' => true,
             'debug_redirects' => false,
             'use_assetic_controller' => true,
-            'curlhelper.class' => 'Renaissance\\CommonBundle\\Tools\\CurlHelper',
+            'video_external_url' => 'http://127.0.0.1:8000/show/',
+            'curlhelper.class' => 'Video\\CommonBundle\\Tools\\CurlHelper',
             'curlhelper.class.canvas_access_token' => 'IULKhnRJ2lVB5bza9NC70AUGnT9VtVaRgdt5737tlPhAGSMDVYcd7VBw9pfVR2GV',
             'curlhelper.class.base_url' => 'https://canvas.example.com/api/v1/',
             'curlhelper.class.authed' => false,
+            'fileupload.class' => 'Video\\CommonBundle\\Tools\\FileUpload',
+            'fileupload.class.base_upload_path' => 'bundles/videoweb/',
             'controller_resolver.class' => 'Symfony\\Bundle\\FrameworkBundle\\Controller\\ControllerResolver',
             'controller_name_converter.class' => 'Symfony\\Bundle\\FrameworkBundle\\Controller\\ControllerNameParser',
             'response_listener.class' => 'Symfony\\Component\\HttpKernel\\EventListener\\ResponseListener',

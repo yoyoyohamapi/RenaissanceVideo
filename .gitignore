@@ -1,1 +1,7 @@
 web/bundles/videoweb/video/*
+vendor/*
+app/cache/*
+app/logs/*
+app/AppCache.php
+app/Resources
+src/Video/CommonBundle/Resources/config/services.yml

@@ -143,7 +143,7 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
             // video_web_homepage
             if (preg_match('#^/hello/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'video_web_homepage')), array (  '_controller' => 'Video\\WebBundle\\Controller\\DefaultController::indexAction',));
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'video_web_homepage')), array (  '_controller' => 'VideoWebBundle:Default:index',));
             }
 
         }
@@ -159,8 +159,14 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         // show
         if (0 === strpos($pathinfo, '/show') && preg_match('#^/show/(?P<video_id>\\d+)$#s', $pathinfo, $matches)) {
+            if ($this->context->getMethod() != 'POST') {
+                $allow[] = 'POST';
+                goto not_show;
+            }
+
             return $this->mergeDefaults(array_replace($matches, array('_route' => 'show')), array (  '_controller' => 'Video\\WebBundle\\Controller\\PlayController::showAction',));
         }
+        not_show:
 
         // upload
         if ($pathinfo === '/upload') {
@@ -179,6 +185,43 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             }
 
         }
+
+        if (0 === strpos($pathinfo, '/c')) {
+            if (0 === strpos($pathinfo, '/course')) {
+                // course_show
+                if ($pathinfo === '/course') {
+                    return array (  '_controller' => 'Video\\WebBundle\\Controller\\CourseController::showAction',  '_route' => 'course_show',);
+                }
+
+                // chapter_show
+                if (preg_match('#^/course/(?P<course_id>\\d+)/chapter$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'chapter_show')), array (  '_controller' => 'Video\\WebBundle\\Controller\\ChapterController::showAction',));
+                }
+
+            }
+
+            // choice
+            if (0 === strpos($pathinfo, '/choice') && preg_match('#^/choice/(?P<video_id>\\d+)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'choice')), array (  '_controller' => 'Video\\WebBundle\\Controller\\CanvasController::choiceAction',));
+            }
+
+        }
+
+        // find_chapters
+        if ($pathinfo === '/findchapters') {
+            return array (  '_controller' => 'Video\\WebBundle\\Controller\\CanvasController::findChaptersAction',  '_route' => 'find_chapters',);
+        }
+
+        // add_ex_url
+        if ($pathinfo === '/addExUrl') {
+            if ($this->context->getMethod() != 'POST') {
+                $allow[] = 'POST';
+                goto not_add_ex_url;
+            }
+
+            return array (  '_controller' => 'Video\\WebBundle\\Controller\\CanvasController::addExUrlAction',  '_route' => 'add_ex_url',);
+        }
+        not_add_ex_url:
 
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();
     }

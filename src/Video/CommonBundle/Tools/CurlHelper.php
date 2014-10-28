@@ -1,6 +1,6 @@
 <?php 
 
-namespace Renaissance\CommonBundle\Tools;
+namespace Video\CommonBundle\Tools;
 
 class CurlHelper {
 	protected $access_token;

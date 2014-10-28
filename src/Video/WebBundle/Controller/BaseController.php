@@ -1,12 +1,8 @@
 <?php
-
 namespace Video\WebBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 
 class BaseController extends Controller
 {
-	    protected function createJsonResponse($data)
-	    {
-	        return new JsonResponse($data);
-	    }
 }

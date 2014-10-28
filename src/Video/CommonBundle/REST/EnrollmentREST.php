@@ -1,5 +1,5 @@
 <?php
-namespace Renaissance\CommonBundle\REST;
+namespace Video\CommonBundle\REST;
 class EnrollmentREST extends BaseREST{
 	public function getAllEnrollmentsByCourseId($id){
 		$this->api = 'course/'.$id.'/enrollments';

@@ -8,6 +8,8 @@
     {{video.videoName}}
     {{video.videoUrl}}
     {{video.videoUptime| date("Y-m-d H:i")}}
+    <a href="{{path('choice',{'video_id':video.id})}}">添加到canvas</a>
+    <br>
 {% endfor %}
 {% else %}
 暂无视频上传

@@ -64,6 +64,13 @@ class Video
     private $videoType;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="video_cover", type="string", length=160)
+     */
+    private $videoCover;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -208,5 +215,27 @@ class Video
     public function getVideoType()
     {
         return $this->videoType;
+    }
+    /**
+     * Set videoCover
+     *
+     * @param string $videoCover
+     * @return Video
+     */
+    public function setVideoCover($videoCover)
+    {
+        $this->videoCover = $videoCover;
+
+        return $this;
+    }
+
+    /**
+     * Get videoCover
+     *
+     * @return string 
+     */
+    public function getVideoCover()
+    {
+        return $this->videoCover;
     }
 }

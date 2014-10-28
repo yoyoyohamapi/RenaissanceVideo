@@ -1,6 +1,6 @@
 <?php
-namespace Renaissance\CommonBundle\REST;
-use Renaissance\CommonBundle\REST\REST_Base;
+namespace Video\CommonBundle\REST;
+use Video\CommonBundle\REST\REST_Base;
 
 class CourseREST extends BaseREST{
 

@@ -4,13 +4,15 @@ use Symfony\component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 class FileUpload
 {
-	/**
-        * @Assert\File(maxSize="500M",
-        *     mimeTypes ="video/mp4",
-        *     mimeTypesMessage = "Please upload a valid mp4"
-        *                              )
-        */
-       private $file;
+
+       protected $file;
+       protected $base_upload_path;
+       protected $upload_path;
+
+       public function __construct($base_upload_path){
+                    $this->base_upload_path=$base_upload_path;
+                    $this->upload_path=$this->base_upload_path;
+       }
 	/**
      	 * Sets file.
      	 *
@@ -53,11 +55,13 @@ class FileUpload
       public function getFileType(){
                       return $this->getFile()->getMimeType();
       }
-      public function getUploadPath(){
-                  $uplod_path="bundles/videoweb/video/";
-                  return $uplod_path;
+      public function setUploadPath($path=""){
+                 $this->upload_path=$this->base_upload_path.$path;
       }
-      public function uploadFile($index){
+      public function getUploadPath(){
+                  return $this->upload_path;
+      }
+      public function uploadFile($index=0){
         $upload_name= $this->getFileName();
         if($index!=0)$upload_name=$upload_name."(".$index.")";
         try {
@@ -70,7 +74,7 @@ class FileUpload
           exit();
         }
       }
-      public function getUploadUrl($index){
+      public function getUploadUrl($index=0){
         $upload_url= $this->getUploadPath().$this->getFileName();
         if($index!=0)$upload_url=$upload_url."(".$index.")";
         return $upload_url;

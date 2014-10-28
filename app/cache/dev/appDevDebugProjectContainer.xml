@@ -39,10 +39,13 @@
     <parameter key="debug_toolbar">true</parameter>
     <parameter key="debug_redirects">false</parameter>
     <parameter key="use_assetic_controller">true</parameter>
-    <parameter key="curlhelper.class">Renaissance\CommonBundle\Tools\CurlHelper</parameter>
+    <parameter key="video_external_url">http://127.0.0.1:8000/show/</parameter>
+    <parameter key="curlhelper.class">Video\CommonBundle\Tools\CurlHelper</parameter>
     <parameter key="curlhelper.class.canvas_access_token">IULKhnRJ2lVB5bza9NC70AUGnT9VtVaRgdt5737tlPhAGSMDVYcd7VBw9pfVR2GV</parameter>
     <parameter key="curlhelper.class.base_url">https://canvas.example.com/api/v1/</parameter>
     <parameter key="curlhelper.class.authed">false</parameter>
+    <parameter key="fileupload.class">Video\CommonBundle\Tools\FileUpload</parameter>
+    <parameter key="fileupload.class.base_upload_path">bundles/videoweb/</parameter>
     <parameter key="controller_resolver.class">Symfony\Bundle\FrameworkBundle\Controller\ControllerResolver</parameter>
     <parameter key="controller_name_converter.class">Symfony\Bundle\FrameworkBundle\Controller\ControllerNameParser</parameter>
     <parameter key="response_listener.class">Symfony\Component\HttpKernel\EventListener\ResponseListener</parameter>
@@ -589,42 +592,41 @@
     </parameter>
   </parameters>
   <services>
-    <service id="curlhelper" class="Renaissance\CommonBundle\Tools\CurlHelper">
+    <service id="curlhelper" class="Video\CommonBundle\Tools\CurlHelper">
       <argument>IULKhnRJ2lVB5bza9NC70AUGnT9VtVaRgdt5737tlPhAGSMDVYcd7VBw9pfVR2GV</argument>
       <argument>https://canvas.example.com/api/v1/</argument>
       <argument>false</argument>
     </service>
-    <service id="renaissance.twig.renaissance_extension" class="Renaissance\CommonBundle\Twig\RenaissanceExtension">
-      <tag name="twig.extension"/>
-      <argument type="service" id="service_container"/>
-    </service>
-    <service id="baserest" class="Renaissance\CommonBundle\REST\BaseREST">
+    <service id="baserest" class="Video\CommonBundle\REST\BaseREST">
       <argument type="service" id="curlhelper"/>
       <argument type="service" id="service_container"/>
     </service>
-    <service id="courserest" class="Renaissance\CommonBundle\REST\CourseREST">
+    <service id="courserest" class="Video\CommonBundle\REST\CourseREST">
       <argument type="service" id="curlhelper"/>
       <argument type="service" id="service_container"/>
     </service>
-    <service id="enrollmentrest" class="Renaissance\CommonBundle\REST\EnrollmentREST">
+    <service id="enrollmentrest" class="Video\CommonBundle\REST\EnrollmentREST">
       <argument type="service" id="curlhelper"/>
       <argument type="service" id="service_container"/>
     </service>
-    <service id="userrest" class="Renaissance\CommonBundle\REST\UserREST">
+    <service id="userrest" class="Video\CommonBundle\REST\UserREST">
       <argument type="service" id="curlhelper"/>
       <argument type="service" id="service_container"/>
     </service>
-    <service id="filerest" class="Renaissance\CommonBundle\REST\FileREST">
+    <service id="filerest" class="Video\CommonBundle\REST\FileREST">
       <argument type="service" id="curlhelper"/>
       <argument type="service" id="service_container"/>
     </service>
-    <service id="modulesrest" class="Renaissance\CommonBundle\REST\ModulesREST">
+    <service id="modulerest" class="Video\CommonBundle\REST\ModuleREST">
       <argument type="service" id="curlhelper"/>
       <argument type="service" id="service_container"/>
     </service>
-    <service id="pagerest" class="Renaissance\CommonBundle\REST\PageREST">
+    <service id="pagerest" class="Video\CommonBundle\REST\PageREST">
       <argument type="service" id="curlhelper"/>
       <argument type="service" id="service_container"/>
+    </service>
+    <service id="fileupload" class="Video\CommonBundle\Tools\FileUpload">
+      <argument>bundles/videoweb/</argument>
     </service>
     <service id="controller_name_converter" class="Symfony\Bundle\FrameworkBundle\Controller\ControllerNameParser" public="false">
       <tag name="monolog.logger" channel="request"/>
@@ -2054,9 +2056,6 @@
         <argument key="charset">UTF-8</argument>
         <argument key="paths" type="collection"/>
       </argument>
-      <call method="addExtension">
-        <argument type="service" id="renaissance.twig.renaissance_extension"/>
-      </call>
       <call method="addExtension">
         <argument type="service">
           <service class="Symfony\Bundle\SecurityBundle\Twig\Extension\LogoutUrlExtension" public="false">
