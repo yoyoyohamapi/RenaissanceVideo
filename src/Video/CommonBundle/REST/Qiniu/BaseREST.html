@@ -1,0 +1,48 @@
+<?php
+namespace Video\CommonBundle\REST;
+
+class BaseREST{
+	protected $api;
+	protected $data_field;//待提交数据数组
+	protected $secret_key;
+	protected $access_key;
+	protected $base_host;
+	protected $bucket;
+	protected $operate;
+	public function __construct(){
+		$this->host=$this->container->getParameter('qiniu_base_host');
+            		$this->secretKey=$this->container->getParameter('qiniu_secret_key');
+            		$this->accessKey=$this->container->getParameter('qiniu_access_key');
+            		$this->operate="";
+	}
+
+	protected function execute($type=null){
+		$args_num = func_num_args();//获得参数个数
+		if($args_num == 0)
+			return $this->executeGet();
+		else if($args_num == 1)
+			return $this->executeCustom($type);
+		else
+			return null;
+	}
+
+	private function executeGet(){
+		if( strlen($this->api)==0 )
+			return null;
+		else
+		{
+		             	$curlHelper=$this->get('curlHelper1');
+		             	$token=$this->createToken($secret_key,$access_key,$bucket,$operate);
+			return $curlHelper->curlGet($this->api);
+		}
+	}
+	private function createToken($secret_key,$access_key,$bucket,$operate){
+		
+	}
+	private function executeCustom($type){
+		if( strlen($this->api)==0 || empty($this->data_field) )
+			return null;
+		else
+			return $this->curlHelper->curlCustom($this->api,$this->data_field,$type);
+	}
+}

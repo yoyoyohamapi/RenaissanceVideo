@@ -12,6 +12,7 @@ class PlayController extends BaseController
         $data=array(
             "videos"=>$videos,
             );
+        $fileupload=$this->container->getParameter('fileUpload.class');
         return $this->render('VideoWebBundle:Play:index.html.twig', $data); 
     }
     public function showAction($video_id)
