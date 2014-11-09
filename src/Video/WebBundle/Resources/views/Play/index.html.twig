@@ -1,17 +1,24 @@
 {% extends "VideoWebBundle:Layout:layout.html.twig" %}
 
-{% block title %}VideoWebBundle:Play:index{% endblock %}
+{% block title %}视频管理{% endblock %}
 
 {% block  content%}
 {% if videos | length>0 %}
 {% for video in videos %}
     {{video.videoName}}
     {{video.videoUrl}}
-    {{video.videoUptime| date("Y-m-d H:i")}}
+    {{video.videoUptime | date("Y-m-d H:i")}}
     <a href="{{path('choice',{'video_id':video.id})}}">添加到canvas</a>
     <br>
 {% endfor %}
 {% else %}
 暂无视频上传
 {% endif %}
+<a href="{{path('to_create_token')}}">创建访问许可证</a>
+<br>
+{% for token in tokens %}
+    {{token.accessToken}}
+    {{token.createTime|date("Y-m-d H:i:m")}}
+    {{token.limitTime|date("Y-m-d H:i:m")}}
+{% endfor %}
 {% endblock %}

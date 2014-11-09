@@ -9,10 +9,16 @@ class PlayController extends BaseController
     {
         $repos=$this->getDoctrine()->getRepository('VideoCommonBundle:Video');
         $videos=$repos->findAll();
+        $repos=$this->getDoctrine()->getRepository('VideoCommonBundle:Token');
+        $tokens=$repos->findAll();
+        foreach ($tokens as $key => $value) {
+            $access_token=$value->getAccessToken();
+            $value->setAccessToken(substr($access_token, 0,4).'...');
+        }
         $data=array(
-            "videos"=>$videos,
+            'videos'=>$videos,
+            'tokens'=>$tokens,
             );
-        $fileupload=$this->container->getParameter('fileUpload.class');
         return $this->render('VideoWebBundle:Play:index.html.twig', $data); 
     }
     public function showAction($video_id)
@@ -23,5 +29,8 @@ class PlayController extends BaseController
             "video"=>$video,
             );
         return $this->render('VideoWebBundle:Play:show.html.twig', $data);
+    }
+    public function createTokenAction(){
+         return $this->render('VideoWebBundle:Play:create_token.html.twig');
     }
 }

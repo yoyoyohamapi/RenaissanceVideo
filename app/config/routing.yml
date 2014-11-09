@@ -1,3 +1,7 @@
+video_api:
+    resource: "@VideoApiBundle/Resources/config/routing.yml"
+    prefix:   /api
+
 video_common:
     resource: "@VideoCommonBundle/Resources/config/routing.yml"
     prefix:   /
@@ -5,4 +9,7 @@ video_common:
 video_web:
     resource: "@VideoWebBundle/Resources/config/routing.yml"
     prefix:   /
-
+    
+NelmioApiDocBundle:
+    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+    prefix:   /api/doc

@@ -14,7 +14,7 @@ class FileController extends BaseController
             ->setAction($this->generateUrl('upload'))
             ->add('video','file',array('label'=>'视频上传'))
             ->add('cover','file',array('label'=>'封面上传'))
-            ->add('上传','submit')
+            ->add('upload','submit')
             ->getForm();
         $form->handleRequest($request);
         if($form->isValid())

@@ -1,0 +1,11 @@
+video_api_homepage:
+    path:     /hell/{name}
+    defaults: { _controller: VideoApiBundle:Api:index }
+    methods: [GET]
+save_video_token:
+    path:     /save/videotoken
+    defaults: { _controller: VideoApiBundle:Api:saveVideoToken }
+    methods: [POST]
+create_access_token:
+    path:     /create/accesstoken
+    defaults: { _controller: VideoApiBundle:Base:createToken }

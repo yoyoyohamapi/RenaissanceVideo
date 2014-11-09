@@ -46,3 +46,7 @@ add_ex_url:
     path:     /addExUrl
     defaults: { _controller: VideoWebBundle:Canvas:addExUrl }
     methods: [POST]
+
+to_create_token:
+    path:     /tocreateToken
+    defaults: { _controller: VideoWebBundle:Play:createToken }
