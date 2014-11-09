@@ -3842,6 +3842,7 @@ class appDevDebugProjectContainer extends Container
             'debug_toolbar' => true,
             'debug_redirects' => false,
             'use_assetic_controller' => true,
+            'video_external_url' => 'http://127.0.0.1:8000/show/',
             'video_auth_head' => 'RenaissanceVideo',
             'curlhelper.class' => 'Video\\CommonBundle\\Tools\\CurlHelper',
             'curlhelper.class.canvas_access_token' => 'IULKhnRJ2lVB5bza9NC70AUGnT9VtVaRgdt5737tlPhAGSMDVYcd7VBw9pfVR2GV',
