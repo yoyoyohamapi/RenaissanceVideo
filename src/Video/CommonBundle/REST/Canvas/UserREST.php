@@ -1,6 +1,6 @@
 <?php
-namespace Video\CommonBundle\REST;
-class UserREST extends BaseREST{
+namespace Video\CommonBundle\REST\Canvas;
+class UserREST extends CanvasBaseREST{
 	public function getUserProfile($user_id){
 		$this->api = "users/".$user_id."/profile";
 		$profile = $this->execute();

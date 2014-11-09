@@ -1,8 +1,7 @@
 <?php
-namespace Video\CommonBundle\REST;
-use Video\CommonBundle\REST\REST_Base;
+namespace Video\CommonBundle\REST\Canvas;
 
-class CourseREST extends BaseREST{
+class CourseREST extends CanvasBaseREST{
 
 	public function getAllCourses(){
 		$this->api="courses";

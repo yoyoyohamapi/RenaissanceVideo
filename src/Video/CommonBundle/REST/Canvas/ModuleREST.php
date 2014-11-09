@@ -1,8 +1,7 @@
 <?php
-namespace Video\CommonBundle\REST;
-use Video\CommonBundle\REST\REST_Base;
+namespace Video\CommonBundle\REST\Canvas;
 
-class ModuleREST extends BaseREST{
+class ModuleREST extends CanvasBaseREST{
 	public function getModulesByCourseId($id){
 		$this->api = "courses/".$id."/modules?include[]=items";
 		$chapters = $this->execute();

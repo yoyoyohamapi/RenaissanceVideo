@@ -1,6 +1,6 @@
 <?php
-namespace Video\CommonBundle\REST;
-class EnrollmentREST extends BaseREST{
+namespace Video\CommonBundle\REST\Canvas;
+class EnrollmentREST extends CanvasBaseREST{
 	public function getAllEnrollmentsByCourseId($id){
 		$this->api = 'course/'.$id.'/enrollments';
 		return $this->execute();

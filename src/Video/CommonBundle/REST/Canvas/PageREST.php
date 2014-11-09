@@ -1,8 +1,7 @@
 <?php
-namespace Video\CommonBundle\REST;
-use Video\CommonBundle\REST\REST_Base;
+namespace Video\CommonBundle\REST\Canvas;
 
-class PageREST extends BaseREST{
+class PageREST extends CanvasBaseREST{
 	public function getPageByCourseId($id){
 		$this->api = "courses/".$id."/front_page";
         		$page = $this->execute();
