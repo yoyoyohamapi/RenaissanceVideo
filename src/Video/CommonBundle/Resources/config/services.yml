@@ -1,7 +1,5 @@
 parameters:
     curlHelper.class:    Video\CommonBundle\Tools\CurlHelper
-    curlHelper.class.canvas_access_token:   IULKhnRJ2lVB5bza9NC70AUGnT9VtVaRgdt5737tlPhAGSMDVYcd7VBw9pfVR2GV
-    curlHelper.class.base_url:   "https://canvas.example.com/api/v1/"
     curlHelper.class.authed:   FALSE
     fileUpload.class:     Video\CommonBundle\Tools\FileUpload
     fileUpload.class.base_upload_path:  "bundles/videoweb/"
