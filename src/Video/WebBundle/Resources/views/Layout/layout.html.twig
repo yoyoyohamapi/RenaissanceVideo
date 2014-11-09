@@ -3,22 +3,28 @@
 		<meta charset="UTF-8">
 		<title>{% block title %}{% endblock %}</title>
 		{% include "VideoWebBundle:Layout:stylesheets.html.twig" %}
-		{% include "VideoWebBundle:Layout:scripts.html.twig" %}
 		{% block stylesheets %}
 		{% endblock %}
 	</head>
 	<body>
-		{% if no_top is defined %}
+		{% block navbar %}
+		{% if no_navbar is defined%}
 		{% else %}
-		{% include "VideoWebBundle:Layout:top.html.twig" %}
+			{% include "VideoWebBundle:Layout:nav_normal.html.twig" %}
 		{% endif %}
+		{% endblock %}
 		{% if no_filebar is defined %}
 		{% else %}
 		{{render(controller('VideoWebBundle:File:upload'))}}
 		{% endif %}
 		{% block content %}		    
 		{% endblock %}
+		{% if base_bar is defined %}
+		{% include "VideoWebBundle:Layout:base_bar.html.twig" %}
+		{% endif %}
+		{% if footer is defined %}
+		{% include "VideoWebBundle:Layout:footer.html.twig" %}
+		{% endif %}
+		{% include "VideoWebBundle:Layout:scripts.html.twig" %}
 	</body>
-	{% block scripts %}
-	{% endblock %}
 </html>

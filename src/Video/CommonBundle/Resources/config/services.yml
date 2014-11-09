@@ -1,35 +1,36 @@
 parameters:
     curlHelper.class:    Video\CommonBundle\Tools\CurlHelper
-    curlHelper.class.canvas_access_token:   IULKhnRJ2lVB5bza9NC70AUGnT9VtVaRgdt5737tlPhAGSMDVYcd7VBw9pfVR2GV
-    curlHelper.class.base_url:   "https://canvas.example.com/api/v1/"
     curlHelper.class.authed:   FALSE
     fileUpload.class:     Video\CommonBundle\Tools\FileUpload
     fileUpload.class.base_upload_path:  "bundles/videoweb/"
 services:
     curlHelper:
         class:    "%curlHelper.class%"
-        arguments:    ["%curlHelper.class.canvas_access_token%","%curlHelper.class.base_url%","%curlHelper.class.authed%"]
+        arguments:    ["curlHelper.class.authed%"]
     baseREST:
         class: Video\CommonBundle\REST\BaseREST
         arguments: [@curlHelper,@service_container]
+    canvasBaseREST:
+        class: Video\CommonBundle\REST\Canvas\CanvasBaseREST
+        parent: baseREST
     courseREST:
-        class: Video\CommonBundle\REST\CourseREST
-        parent: baseREST
+        class: Video\CommonBundle\REST\Canvas\CourseREST
+        parent: canvasBaseREST
     enrollmentREST:
-        class: Video\CommonBundle\REST\EnrollmentREST
-        parent: baseREST
+        class: Video\CommonBundle\REST\Canvas\EnrollmentREST
+        parent: canvasBaseREST
     userREST:
-        class: Video\CommonBundle\REST\UserREST
-        parent: baseREST
+        class: Video\CommonBundle\REST\Canvas\UserREST
+        parent: canvasBaseREST
     fileREST:
-        class: Video\CommonBundle\REST\FileREST
-        parent: baseREST
+        class: Video\CommonBundle\REST\Canvas\FileREST
+        parent: canvasBaseREST
     moduleREST:
-        class: Video\CommonBundle\REST\ModuleREST
-        parent: baseREST
+        class: Video\CommonBundle\REST\Canvas\ModuleREST
+        parent: canvasBaseREST
     pageREST:
-        class: Video\CommonBundle\REST\PageREST
-        parent: baseREST
+        class: Video\CommonBundle\REST\Canvas\PageREST
+        parent: canvasBaseREST
     fileUpload:
         class:  "%fileUpload.class%"
         arguments:  ["%fileUpload.class.base_upload_path%"]

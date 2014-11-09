@@ -1,6 +1,7 @@
 <?php
-namespace Video\CommonBundle\REST;
-class FileREST extends BaseREST{
+namespace Video\CommonBundle\REST\Canvas;
+
+class FileREST extends CanvasBaseREST{
 
 	private function getAllFilesByCourseId($id){
 		$this->api = "courses/".$id.'/files';
