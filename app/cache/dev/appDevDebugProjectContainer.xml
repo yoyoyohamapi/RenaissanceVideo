@@ -15,9 +15,11 @@
       <parameter key="SwiftmailerBundle">Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle</parameter>
       <parameter key="AsseticBundle">Symfony\Bundle\AsseticBundle\AsseticBundle</parameter>
       <parameter key="DoctrineBundle">Doctrine\Bundle\DoctrineBundle\DoctrineBundle</parameter>
+      <parameter key="NelmioApiDocBundle">Nelmio\ApiDocBundle\NelmioApiDocBundle</parameter>
       <parameter key="SensioFrameworkExtraBundle">Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle</parameter>
       <parameter key="VideoWebBundle">Video\WebBundle\VideoWebBundle</parameter>
       <parameter key="VideoCommonBundle">Video\CommonBundle\VideoCommonBundle</parameter>
+      <parameter key="VideoApiBundle">Video\ApiBundle\VideoApiBundle</parameter>
       <parameter key="WebProfilerBundle">Symfony\Bundle\WebProfilerBundle\WebProfilerBundle</parameter>
       <parameter key="SensioDistributionBundle">Sensio\Bundle\DistributionBundle\SensioDistributionBundle</parameter>
       <parameter key="SensioGeneratorBundle">Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle</parameter>
@@ -39,7 +41,7 @@
     <parameter key="debug_toolbar">true</parameter>
     <parameter key="debug_redirects">false</parameter>
     <parameter key="use_assetic_controller">true</parameter>
-    <parameter key="video_external_url">http://127.0.0.1:8000/show/</parameter>
+    <parameter key="video_auth_head">RenaissanceVideo</parameter>
     <parameter key="curlhelper.class">Video\CommonBundle\Tools\CurlHelper</parameter>
     <parameter key="curlhelper.class.canvas_access_token">IULKhnRJ2lVB5bza9NC70AUGnT9VtVaRgdt5737tlPhAGSMDVYcd7VBw9pfVR2GV</parameter>
     <parameter key="curlhelper.class.base_url">https://canvas.example.com/api/v1/</parameter>
@@ -514,6 +516,38 @@
     <parameter key="doctrine.orm.auto_generate_proxy_classes">true</parameter>
     <parameter key="doctrine.orm.proxy_dir">/home/lsa2127291/myproject/ReinaissanceVideo/app/cache/dev/doctrine/orm/Proxies</parameter>
     <parameter key="doctrine.orm.proxy_namespace">Proxies</parameter>
+    <parameter key="nelmio_api_doc.motd.template">NelmioApiDocBundle::Components/motd.html.twig</parameter>
+    <parameter key="nelmio_api_doc.exclude_sections" type="collection"/>
+    <parameter key="nelmio_api_doc.api_name">API documentation</parameter>
+    <parameter key="nelmio_api_doc.sandbox.enabled">true</parameter>
+    <parameter key="nelmio_api_doc.sandbox.endpoint">null</parameter>
+    <parameter key="nelmio_api_doc.sandbox.accept_type">null</parameter>
+    <parameter key="nelmio_api_doc.sandbox.body_format.formats" type="collection">
+      <parameter>form</parameter>
+      <parameter>json</parameter>
+    </parameter>
+    <parameter key="nelmio_api_doc.sandbox.body_format.default_format">form</parameter>
+    <parameter key="nelmio_api_doc.sandbox.request_format.method">format_param</parameter>
+    <parameter key="nelmio_api_doc.sandbox.request_format.default_format">json</parameter>
+    <parameter key="nelmio_api_doc.sandbox.request_format.formats" type="collection">
+      <parameter key="json">application/json</parameter>
+      <parameter key="xml">application/xml</parameter>
+    </parameter>
+    <parameter key="nelmio_api_doc.formatter.abstract_formatter.class">Nelmio\ApiDocBundle\Formatter\AbstractFormatter</parameter>
+    <parameter key="nelmio_api_doc.formatter.markdown_formatter.class">Nelmio\ApiDocBundle\Formatter\MarkdownFormatter</parameter>
+    <parameter key="nelmio_api_doc.formatter.simple_formatter.class">Nelmio\ApiDocBundle\Formatter\SimpleFormatter</parameter>
+    <parameter key="nelmio_api_doc.formatter.html_formatter.class">Nelmio\ApiDocBundle\Formatter\HtmlFormatter</parameter>
+    <parameter key="nelmio_api_doc.sandbox.authentication">null</parameter>
+    <parameter key="nelmio_api_doc.extractor.api_doc_extractor.class">Nelmio\ApiDocBundle\Extractor\ApiDocExtractor</parameter>
+    <parameter key="nelmio_api_doc.form.extension.description_form_type_extension.class">Nelmio\ApiDocBundle\Form\Extension\DescriptionFormTypeExtension</parameter>
+    <parameter key="nelmio_api_doc.twig.extension.extra_markdown.class">Nelmio\ApiDocBundle\Twig\Extension\MarkdownExtension</parameter>
+    <parameter key="nelmio_api_doc.doc_comment_extractor.class">Nelmio\ApiDocBundle\Util\DocCommentExtractor</parameter>
+    <parameter key="nelmio_api_doc.extractor.handler.fos_rest.class">Nelmio\ApiDocBundle\Extractor\Handler\FosRestHandler</parameter>
+    <parameter key="nelmio_api_doc.extractor.handler.jms_security.class">Nelmio\ApiDocBundle\Extractor\Handler\JmsSecurityExtraHandler</parameter>
+    <parameter key="nelmio_api_doc.extractor.handler.sensio_framework_extra.class">Nelmio\ApiDocBundle\Extractor\Handler\SensioFrameworkExtraHandler</parameter>
+    <parameter key="nelmio_api_doc.extractor.handler.phpdoc.class">Nelmio\ApiDocBundle\Extractor\Handler\PhpDocHandler</parameter>
+    <parameter key="nelmio_api_doc.request_listener.parameter">_doc</parameter>
+    <parameter key="nelmio_api_doc.event_listener.request.class">Nelmio\ApiDocBundle\EventListener\RequestListener</parameter>
     <parameter key="sensio_framework_extra.view.guesser.class">Sensio\Bundle\FrameworkExtraBundle\Templating\TemplateGuesser</parameter>
     <parameter key="sensio_framework_extra.controller.listener.class">Sensio\Bundle\FrameworkExtraBundle\EventListener\ControllerListener</parameter>
     <parameter key="sensio_framework_extra.routing.loader.annot_dir.class">Symfony\Component\Routing\Loader\AnnotationDirectoryLoader</parameter>
@@ -590,6 +624,8 @@
     <parameter key="console.command.ids" type="collection">
       <parameter>sensio_distribution.security_checker.command</parameter>
     </parameter>
+    <parameter key="nelmio_api_doc.parser.form_type_parser.class">Nelmio\ApiDocBundle\Parser\FormTypeParser</parameter>
+    <parameter key="nelmio_api_doc.parser.validation_parser.class">Nelmio\ApiDocBundle\Parser\ValidationParser</parameter>
   </parameters>
   <services>
     <service id="curlhelper" class="Video\CommonBundle\Tools\CurlHelper">
@@ -1019,6 +1055,14 @@
         </argument>
         <argument>0</argument>
       </call>
+      <call method="addListenerService">
+        <argument>kernel.request</argument>
+        <argument type="collection">
+          <argument>nelmio_api_doc.event_listener.request</argument>
+          <argument>onKernelRequest</argument>
+        </argument>
+        <argument>0</argument>
+      </call>
       <call method="addSubscriberService">
         <argument>response_listener</argument>
         <argument>Symfony\Component\HttpKernel\EventListener\ResponseListener</argument>
@@ -1221,6 +1265,7 @@
                 <argument>form.type_extension.form.validator</argument>
                 <argument>form.type_extension.csrf</argument>
                 <argument>form.type_extension.form.data_collector</argument>
+                <argument>nelmio_api_doc.form.extension.description_form_type_extension</argument>
               </argument>
               <argument key="repeated" type="collection">
                 <argument>form.type_extension.repeated.validator</argument>
@@ -2193,6 +2238,9 @@
         </argument>
       </call>
       <call method="addExtension">
+        <argument type="service" id="nelmio_api_doc.twig.extension.extra_markdown"/>
+      </call>
+      <call method="addExtension">
         <argument type="service">
           <service class="Symfony\Bundle\WebProfilerBundle\Twig\WebProfilerExtension" public="false">
             <tag name="twig.extension"/>
@@ -2473,6 +2521,101 @@
       </argument>
       <configurator service="doctrine.orm.default_manager_configurator" method="configure"/>
     </service>
+    <service id="nelmio_api_doc.formatter.abstract_formatter" class="Nelmio\ApiDocBundle\Formatter\AbstractFormatter"/>
+    <service id="nelmio_api_doc.formatter.markdown_formatter" class="Nelmio\ApiDocBundle\Formatter\MarkdownFormatter"/>
+    <service id="nelmio_api_doc.formatter.simple_formatter" class="Nelmio\ApiDocBundle\Formatter\SimpleFormatter"/>
+    <service id="nelmio_api_doc.formatter.html_formatter" class="Nelmio\ApiDocBundle\Formatter\HtmlFormatter">
+      <call method="setTemplatingEngine">
+        <argument type="service" id="templating"/>
+      </call>
+      <call method="setMotdTemplate">
+        <argument>NelmioApiDocBundle::Components/motd.html.twig</argument>
+      </call>
+      <call method="setApiName">
+        <argument>API documentation</argument>
+      </call>
+      <call method="setEnableSandbox">
+        <argument>true</argument>
+      </call>
+      <call method="setEndpoint">
+        <argument>null</argument>
+      </call>
+      <call method="setRequestFormatMethod">
+        <argument>format_param</argument>
+      </call>
+      <call method="setRequestFormats">
+        <argument type="collection">
+          <argument key="json">application/json</argument>
+          <argument key="xml">application/xml</argument>
+        </argument>
+      </call>
+      <call method="setDefaultRequestFormat">
+        <argument>json</argument>
+      </call>
+      <call method="setAcceptType">
+        <argument>null</argument>
+      </call>
+      <call method="setBodyFormats">
+        <argument type="collection">
+          <argument>form</argument>
+          <argument>json</argument>
+        </argument>
+      </call>
+      <call method="setDefaultBodyFormat">
+        <argument>form</argument>
+      </call>
+      <call method="setAuthentication">
+        <argument>null</argument>
+      </call>
+    </service>
+    <service id="nelmio_api_doc.doc_comment_extractor" class="Nelmio\ApiDocBundle\Util\DocCommentExtractor"/>
+    <service id="nelmio_api_doc.extractor.api_doc_extractor" class="Nelmio\ApiDocBundle\Extractor\ApiDocExtractor">
+      <argument type="service" id="service_container"/>
+      <argument type="service" id="router"/>
+      <argument type="service" id="annotation_reader"/>
+      <argument type="service" id="nelmio_api_doc.doc_comment_extractor"/>
+      <argument type="collection">
+        <argument type="service">
+          <service class="Nelmio\ApiDocBundle\Extractor\Handler\FosRestHandler" public="false">
+            <tag name="nelmio_api_doc.extractor.handler"/>
+          </service>
+        </argument>
+        <argument type="service">
+          <service class="Nelmio\ApiDocBundle\Extractor\Handler\JmsSecurityExtraHandler" public="false">
+            <tag name="nelmio_api_doc.extractor.handler"/>
+          </service>
+        </argument>
+        <argument type="service">
+          <service class="Nelmio\ApiDocBundle\Extractor\Handler\SensioFrameworkExtraHandler" public="false">
+            <tag name="nelmio_api_doc.extractor.handler"/>
+          </service>
+        </argument>
+        <argument type="service">
+          <service class="Nelmio\ApiDocBundle\Extractor\Handler\PhpDocHandler" public="false">
+            <tag name="nelmio_api_doc.extractor.handler"/>
+            <argument type="service" id="nelmio_api_doc.doc_comment_extractor"/>
+          </service>
+        </argument>
+      </argument>
+      <call method="addParser">
+        <argument type="service" id="nelmio_api_doc.parser.form_type_parser"/>
+      </call>
+      <call method="addParser">
+        <argument type="service" id="nelmio_api_doc.parser.validation_parser"/>
+      </call>
+    </service>
+    <service id="nelmio_api_doc.form.extension.description_form_type_extension" class="Nelmio\ApiDocBundle\Form\Extension\DescriptionFormTypeExtension">
+      <tag name="form.type_extension" alias="form"/>
+    </service>
+    <service id="nelmio_api_doc.twig.extension.extra_markdown" class="Nelmio\ApiDocBundle\Twig\Extension\MarkdownExtension">
+      <tag name="twig.extension"/>
+    </service>
+    <service id="nelmio_api_doc.event_listener.request" class="Nelmio\ApiDocBundle\EventListener\RequestListener">
+      <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest"/>
+      <argument type="service" id="nelmio_api_doc.extractor.api_doc_extractor"/>
+      <argument type="service" id="nelmio_api_doc.formatter.html_formatter"/>
+      <argument>_doc</argument>
+    </service>
     <service id="sensio_framework_extra.view.guesser" class="Sensio\Bundle\FrameworkExtraBundle\Templating\TemplateGuesser">
       <argument type="service" id="kernel"/>
     </service>
@@ -2742,6 +2885,14 @@
       <argument>100</argument>
       <argument>true</argument>
     </service>
+    <service id="nelmio_api_doc.parser.form_type_parser" class="Nelmio\ApiDocBundle\Parser\FormTypeParser">
+      <tag name="nelmio_api_doc.extractor.parser"/>
+      <argument type="service" id="form.factory"/>
+    </service>
+    <service id="nelmio_api_doc.parser.validation_parser" class="Nelmio\ApiDocBundle\Parser\ValidationParser">
+      <tag name="nelmio_api_doc.extractor.parser"/>
+      <argument type="service" id="validator"/>
+    </service>
     <service id="session.storage.filesystem" class="Symfony\Component\HttpFoundation\Session\Storage\MockFileSessionStorage">
       <argument>/home/lsa2127291/myproject/ReinaissanceVideo/app/cache/dev/sessions</argument>
       <argument>MOCKSESSID</argument>
@@ -2851,12 +3002,20 @@
         <argument>Doctrine</argument>
       </call>
       <call method="addPath">
+        <argument>/home/lsa2127291/myproject/ReinaissanceVideo/vendor/nelmio/api-doc-bundle/Nelmio/ApiDocBundle/Resources/views</argument>
+        <argument>NelmioApiDoc</argument>
+      </call>
+      <call method="addPath">
         <argument>/home/lsa2127291/myproject/ReinaissanceVideo/src/Video/WebBundle/Resources/views</argument>
         <argument>VideoWeb</argument>
       </call>
       <call method="addPath">
         <argument>/home/lsa2127291/myproject/ReinaissanceVideo/src/Video/CommonBundle/Resources/views</argument>
         <argument>VideoCommon</argument>
+      </call>
+      <call method="addPath">
+        <argument>/home/lsa2127291/myproject/ReinaissanceVideo/src/Video/ApiBundle/Resources/views</argument>
+        <argument>VideoApi</argument>
       </call>
       <call method="addPath">
         <argument>/home/lsa2127291/myproject/ReinaissanceVideo/vendor/symfony/symfony/src/Symfony/Bundle/WebProfilerBundle/Resources/views</argument>

@@ -15,4 +15,4 @@ parameters:
     debug_toolbar: true
     debug_redirects: false
     use_assetic_controller: true
-    video_external_url: http://127.0.0.1:8000/show/
+    video_auth_head: RenaissanceVideo

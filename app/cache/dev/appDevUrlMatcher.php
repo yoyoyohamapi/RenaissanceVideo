@@ -135,6 +135,36 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
+        if (0 === strpos($pathinfo, '/api')) {
+            // video_api_homepage
+            if (0 === strpos($pathinfo, '/api/hell') && preg_match('#^/api/hell/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_video_api_homepage;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'video_api_homepage')), array (  '_controller' => 'Video\\ApiBundle\\Controller\\ApiController::indexAction',));
+            }
+            not_video_api_homepage:
+
+            // save_video_token
+            if ($pathinfo === '/api/save/videotoken') {
+                if ($this->context->getMethod() != 'POST') {
+                    $allow[] = 'POST';
+                    goto not_save_video_token;
+                }
+
+                return array (  '_controller' => 'Video\\ApiBundle\\Controller\\ApiController::saveVideoTokenAction',  '_route' => 'save_video_token',);
+            }
+            not_save_video_token:
+
+            // create_access_token
+            if ($pathinfo === '/api/create/accesstoken') {
+                return array (  '_controller' => 'Video\\ApiBundle\\Controller\\BaseController::createTokenAction',  '_route' => 'create_access_token',);
+            }
+
+        }
+
         if (0 === strpos($pathinfo, '/hello')) {
             // video_common_homepage
             if (preg_match('#^/hello/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
@@ -222,6 +252,26 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return array (  '_controller' => 'Video\\WebBundle\\Controller\\CanvasController::addExUrlAction',  '_route' => 'add_ex_url',);
         }
         not_add_ex_url:
+
+        // to_create_token
+        if ($pathinfo === '/tocreateToken') {
+            return array (  '_controller' => 'Video\\WebBundle\\Controller\\PlayController::createTokenAction',  '_route' => 'to_create_token',);
+        }
+
+        // nelmio_api_doc_index
+        if (rtrim($pathinfo, '/') === '/api/doc') {
+            if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                $allow = array_merge($allow, array('GET', 'HEAD'));
+                goto not_nelmio_api_doc_index;
+            }
+
+            if (substr($pathinfo, -1) !== '/') {
+                return $this->redirect($pathinfo.'/', 'nelmio_api_doc_index');
+            }
+
+            return array (  '_controller' => 'Nelmio\\ApiDocBundle\\Controller\\ApiDocController::indexAction',  '_route' => 'nelmio_api_doc_index',);
+        }
+        not_nelmio_api_doc_index:
 
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();
     }
