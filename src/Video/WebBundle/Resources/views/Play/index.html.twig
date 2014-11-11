@@ -41,9 +41,9 @@
 								{% for token in tokens %}
 						        <tr>
 						          	<td style="text-align:center;"><input type="checkbox"></td>
-						          	<td>Canvas lms</td>
+						          	<td>{{token.applyName}}</td>
 						          	<td>{{token.accessToken}}</td>
-						          	<td>已激活</td>
+						          	<td>{{token.state}}</td>
 						          	<td><button class="btn btn-flat" type="button" style="background-color:rgb(243, 233, 183);"><i class="fa fa-refresh" style="color:rgb(197,44,4);font-weight:700"></i> 重新生成</button></td>
 								<tr>
 								{% endfor %}

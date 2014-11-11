@@ -24,6 +24,13 @@ class Token
     /**
      * @var string
      *
+     * @ORM\Column(name="apply_name", type="string", length=50)
+     */
+    private $applyName;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="access_token", type="string", length=255)
      */
     private $accessToken;
@@ -42,6 +49,7 @@ class Token
      */
     private $limitTime;
 
+    private $state;
 
     /**
      * Get id
@@ -51,6 +59,29 @@ class Token
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set applyName
+     *
+     * @param string $applyName
+     * @return Token
+     */
+    public function setApplyName($applyName)
+    {
+        $this->applyName = $applyName;
+
+        return $this;
+    }
+
+    /**
+     * Get applyName
+     *
+     * @return string 
+     */
+    public function getApplyName()
+    {
+        return $this->applyName;
     }
 
     /**
@@ -119,5 +150,28 @@ class Token
     public function getCreateTime()
     {
         return $this->createTime;
+    }
+
+    /**
+     * Set state
+     *
+     * @param string $state
+     * @return Token
+     */
+    public function setState($state)
+    {
+        $this->state = $state;
+
+        return $this;
+    }
+
+    /**
+     * Get state
+     *
+     * @return string 
+     */
+    public function getState()
+    {
+        return $this->state;
     }
 }
