@@ -3819,7 +3819,7 @@ class appDevDebugProjectContainer extends Container
             'kernel.root_dir' => '/home/song/projects/RenaissanceVideo/app',
             'kernel.environment' => 'dev',
             'kernel.debug' => true,
-            'kernel.name' => 'app',
+            'kernel.name' => 'ap_',
             'kernel.cache_dir' => '/home/song/projects/RenaissanceVideo/app/cache/dev',
             'kernel.logs_dir' => '/home/song/projects/RenaissanceVideo/app/logs',
             'kernel.bundles' => array(
