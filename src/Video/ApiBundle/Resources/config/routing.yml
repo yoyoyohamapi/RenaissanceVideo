@@ -11,7 +11,6 @@ create_access_token:
     defaults: { _controller: VideoApiBundle:Base:createToken }
     methods: [POST]
 recreate_access_token:
-    path:     /recreate/accesstoken/{token_id}
+    path:     /recreate/accesstoken
     defaults: { _controller: VideoApiBundle:Base:recreateToken }
-    requirements:
-              token_id: \d+
+    methods: [POST]

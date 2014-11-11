@@ -32,10 +32,12 @@ class BaseController extends Controller
 		return $this->createJsonResponse('success');
 	}
 	//重新生成token
-	public function recreateTokenAction($token_id){
+	public function recreateTokenAction(){
 		$current_time=date('Y-m-d H:i:s',time());
 		$access_token=md5(md5('b1f2t3j7'.$current_time.'1q2w3e4r5t6y'));
 		$em=$this->getDoctrine()->getEntityManager();
+		$request=$this->getRequest();
+		$token_id=$request->request->get('token_id');
 		$token=$em->getRepository('VideoCommonBundle:Token')->find($token_id);
 		if(!$token){
 			throw $this->createNotFoundException(
