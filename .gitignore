@@ -1,6 +1,5 @@
 .DS_Store
 web/bundles/videoweb/video/*
-web/bundles/videoweb/img/*
 vendor/*
 app/cache/*
 app/logs/*
