@@ -1,6 +1,6 @@
 .DS_Store
+app/config/parameters.yml
 web/bundles/videoweb/video/*
-web/bundles/videoweb/img/*
 vendor/*
 app/cache/*
 app/logs/*
