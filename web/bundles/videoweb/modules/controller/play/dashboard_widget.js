@@ -1,9 +1,12 @@
 define(function(require, exports, module){
 	var Widget = require('arale-widget');
+	require('videojs');
 	var CanvasEditModal = require('./canvasEditModal_widget.js');
 	var AddTokenModal = require('./addTokenModal_widget.js');
+	var VideoPreview = require('./videoPreview_widget.js');
 	var canvasEditModal;
 	var addTokenModal;
+	var videoPreview;
 	//创建Dashboard这个Widget
 	var Dashboard = Widget.extend({
 		//Widget操作DOM
@@ -15,7 +18,8 @@ define(function(require, exports, module){
 			'click #toSubmit': 'form_submit',
 			'click #openCanvasEditDlg': 'initCanvasEditModal',
 			'click #showTokenModal': 'initAddTokenModal',
-			'click #showTokenList': 'showTokenList'
+			'click #showTokenList': 'showTokenList',
+			'click #vfileList table tbody tr': 'previewVideo'
 		},
 
 		//打开文件选择框
@@ -93,6 +97,21 @@ define(function(require, exports, module){
 		//显示tokenList
 		showTokenList: function(){
 			$("#tokenList").toggle();
+		},
+		//视频预览
+		previewVideo: function(event){
+			var tr = event.currentTarget;
+			var video_url = tr.getAttribute('data-videoUrl');
+			var video_cover = tr.getAttribute('data-videoCover'); 
+			if(!videoPreview){
+				videoPreview = new VideoPreview({
+					video_obj: _V_("#videoPlayer"),
+					video_div: $('#videoPlayer')
+				});
+			}
+			videoPreview.set('video_url',video_url);
+			videoPreview.set('video_cover',video_cover);
+			videoPreview.refresh();
 		}
 
 	});

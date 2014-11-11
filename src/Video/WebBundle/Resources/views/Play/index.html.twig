@@ -2,10 +2,9 @@
 {% block title %}视频管理{% endblock %}
 {% block stylesheets %}
 <link href="{{asset('bundles/videoweb/css/1.0/dashboard.css')}}" type="text/css" rel="stylesheet"></link>
+<link href="{{asset('bundles/videoweb/css/video-js.css')}}" type="text/css" rel="stylesheet"></link>
 <link href="{{asset('assets/scripts/spm_modules/SelectInspiration/css/cs-select.css')}}" type="text/css" rel="stylesheet"></link>
 <link href="{{asset('assets/scripts/spm_modules/SelectInspiration/css/cs-skin-overlay.css')}}" type="text/css" rel="stylesheet"></link>
-
-
 {% endblock%}
 {% block content %}
 
@@ -82,7 +81,7 @@
 					      	<tbody style="border-bottom:#dddddd solid 1px;">
 					      		{% if videos | length>0 %}
 								{% for video in videos %}
-						        <tr>
+						        <tr data-videoUrl='{{video.videoUrl}}' data-videoCover='{{video.videoCover}}'> 
 						          	<td style="text-align:center;"><input type="checkbox"></td>
 						          	<td>{{video.videoName}}</td>
 						          	<td>{{video.videoUptime | date("Y-m-d H:i")}}</td>
@@ -117,14 +116,13 @@
 			<div class="col-xs-4">
 				<div class="panelBlock" id="vPreview">
 					<div class="row" style="margin:0px;">
-						<div class="col-xs-12 previewBlock" style="text-align:center;">
-							<div class="media"><img src="./img/test.png"></div>
-						</div>
-						<div class="col-xs-12 previewBlock">
-							<p class="title">Java基础教程（一）</p>
-							<p class="content">大小 : 123MB</p>
-							<p class="content">修改时间 : 2014-08-12 12:12:12</p>
-							<p class="content">时长 : 14"24'</p>
+						<div class="col-xs-12 previewBlock" style="height:300px">
+							<video id="videoPlayer" class="video-js vjs-default-skin vjs-big-play-centered"
+							  controls preload="auto" width="100%" height="100%"
+							  poster=""
+							  data-setup='{"example_option":true}'>
+							 <source src="" type='video/mp4' />
+							</video>
 						</div>
 					</div>
 				</div>
