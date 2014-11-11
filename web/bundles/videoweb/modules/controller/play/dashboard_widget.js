@@ -19,7 +19,8 @@ define(function(require, exports, module){
 			'click #openCanvasEditDlg': 'initCanvasEditModal',
 			'click #showTokenModal': 'initAddTokenModal',
 			'click #showTokenList': 'showTokenList',
-			'click #vfileList table tbody tr': 'previewVideo'
+			'click #vfileList table tbody tr': 'previewVideo',
+			'click #recreateToken': 'recreateToken',
 		},
 
 		//打开文件选择框
@@ -112,6 +113,24 @@ define(function(require, exports, module){
 			videoPreview.set('video_url',video_url);
 			videoPreview.set('video_cover',video_cover);
 			videoPreview.refresh();
+		},
+		//重新生成Token
+		recreateToken: function(event){
+			var token_id = event.currentTarget.getAttribute('data-tokenId');
+			var path = '/api/recreate/accesstoken';
+			$.ajax({
+				url:path,
+				data:{
+						token_id:token_id
+					},
+					type:'post',
+					dataType:'json',
+					success:function(data){
+						if(data=="success"){
+							window.location.reload();
+						}
+					}
+			});
 		}
 
 	});
