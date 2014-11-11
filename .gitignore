@@ -6,4 +6,5 @@ app/cache/*
 app/logs/*
 app/AppCache.php
 app/Resources
+app/config/parameters.yml
 src/Video/CommonBundle/Resources/config/service.yml

@@ -21,7 +21,7 @@ define(function(require, exports, module){
 		//打开文件选择框
 		openSelectDialog: function(event){
 			//根据触发按钮选择应当打开哪个文件选择框
-			var btn_id = event.toElement.id;
+			var btn_id = event.currentTarget.id;
 			switch(btn_id){
 				case 'upVideoBtn':
 				//打开视频选择框
