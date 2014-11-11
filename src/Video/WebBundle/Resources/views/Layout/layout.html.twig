@@ -13,18 +13,14 @@
 			{% include "VideoWebBundle:Layout:nav_normal.html.twig" %}
 		{% endif %}
 		{% endblock %}
-		{% if no_filebar is defined %}
-		{% else %}
-		{{render(controller('VideoWebBundle:File:upload'))}}
-		{% endif %}
 		{% block content %}		    
 		{% endblock %}
 		{% if base_bar is defined %}
-		{% include "VideoWebBundle:Layout:base_bar.html.twig" %}
+			{% include "VideoWebBundle:Layout:base_bar.html.twig" %}
 		{% endif %}
 		{% if footer is defined %}
-		{% include "VideoWebBundle:Layout:footer.html.twig" %}
+			{% include "VideoWebBundle:Layout:footer.html.twig" %}
 		{% endif %}
-		{% include "VideoWebBundle:Layout:scripts.html.twig" %}
+			{% include "VideoWebBundle:Layout:scripts.html.twig" %}
 	</body>
 </html>

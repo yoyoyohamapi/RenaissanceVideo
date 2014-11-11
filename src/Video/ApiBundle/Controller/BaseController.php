@@ -5,6 +5,8 @@ namespace Video\ApiBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Video\CommonBundle\Entity\Token;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
 class BaseController extends Controller
 {
 	//创建token并存入数据库
@@ -25,7 +27,7 @@ class BaseController extends Controller
 			);
 		$em->persist($token);
 		$em->flush();
-		return $this->render('VideoApiBundle:Token:show.html.twig',$data);
+		return $this->createJsonResponse('success');
 	}
 	//检查token是否合法
 	public function checkToken($access_token){
@@ -40,4 +42,10 @@ class BaseController extends Controller
 		if($auth_head==$video_auth_head)return true;
 		else return false;
 	}
+
+	protected function createJsonResponse($data)
+	{
+	        	return new JsonResponse($data);
+	}
+
 }

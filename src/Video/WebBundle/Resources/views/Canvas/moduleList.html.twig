@@ -1,0 +1,12 @@
+{% if chapters is defined %}
+<select class="cs-select cs-skin-overlay" id="chapters" name="chapter_id">
+	<option value="-1" disabled selected="selected">--请选择章节--</option>
+	{% if chapters is empty%}
+	<option value="-2" >--本课程无章节--</option>
+	{% else %}
+	{% for chapter in chapters %}
+	<option value="{{chapter.id}}" >{{chapter.name}}</option>
+	{% endfor %}
+	{% endif %}
+</select>
+{% endif %}

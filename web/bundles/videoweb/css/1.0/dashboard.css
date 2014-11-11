@@ -1,0 +1,146 @@
+#dashboard{
+	min-height: 600px;
+}
+
+#dashboard .panelBlock{
+	background-color: #ffffff;
+	margin-top: 25px;
+	margin-bottom: 15px;
+	margin-left: 0px;
+	margin-right: 0px;
+	border-radius: 5px;
+}
+#dashboard #topBar,#bottomBar{
+	/*background-color:#415190; */
+
+}
+
+#dashboard #tokenList,#vfileList{
+	position: relative;
+	overflow: hidden;
+}
+#dashboard #tokenList{
+	min-height: 300px;
+}
+
+#dashboard #vfileList{
+	min-height: 500px;
+	
+}
+
+
+#dashboard  th,td{
+	text-align: center;
+}
+
+#dashboard #vfileList #bottomBar{
+	position: absolute;
+	width: 100%;
+	bottom:0px;
+	padding-top:15px;
+	border-top:#0E1F62 1px solid;
+}
+
+#dashboard #vPreview{
+	min-height: 400px;
+}
+
+#dashboard #vStatus{
+	min-height: 170px;
+}
+
+#dashboard #vStatus .col-xs-12{
+	padding: 15px;
+	font-size: 1em;
+}
+
+.btn.btn-flat{
+	background-color:#ffffff;
+	color:#666666;
+	box-shadow: 3px 3px 4px #DFDCDC;
+}
+.btn.btn-flat:hover{
+	box-shadow: 3px 3px 10px #DFDCDC;
+}
+
+#upbtn{
+	background-color:#FDFDFD;
+}
+#keyword{
+	width: 100%;
+	margin-top: 5px;
+	background-color: #eeeeee;
+	border:1px solid #ffffff;
+	color:#666666;
+	border-radius: 10px;
+}
+
+#filelist{
+	color:#666666;
+}
+#filelist th{
+	font-size: 15px;
+}
+#filelist td{
+	font-size: 13px;
+}
+
+#page{
+	padding: 10px;
+	/*text-align: center;*/
+}
+#page a{
+	padding: 0 3px 0px 3px;
+	border: #ffffff solid 1px;
+}
+#page a.page-li{
+	padding: 0 3px 0px 3px;
+	border: #999999 solid 1px;
+	font-size: 13px;
+	background-color: #ffffff;
+	color: #999999;
+	border-radius: 3px;
+}
+#page a.page-li.active{
+	background-color: #999999;
+	color: #ffffff;
+}
+
+.previewBlock{
+	margin:0px;
+	padding: 20px 40px 10px 40px;
+	color: #666666;
+}
+.previewBlock p.title{
+	text-align: center;
+	font-size: 20px;
+}
+.previewBlock p.content{
+	font-size: 13px;
+}
+
+#up2canvasModal .modal-body p{
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+#up2canvasModal .modal-body p select{
+	background-color: #EDEFF0;
+	border:1px solid #ffffff;
+	color:#666666;
+	border-radius: 4px;
+}
+#up2canvasModal .modal-body p input{
+	background-color: #EDEFF0;
+	border:1px solid #ffffff;
+	color:#666666;
+	border-radius: 4px;
+}
+
+#successModal .modal-content{
+	border-radius: 0px;
+	padding: 15px;
+	font-size: 2em;
+	background-color: gold;
+	color: white;
+}

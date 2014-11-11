@@ -19,21 +19,10 @@ function findChapters(course_id,path){
 		url:path,
 		data:{course_id:course_id},
 		type:'get',
-		dataType:'json',
+		dataType:'html',
 		success:function(data){
-			var isNull=data['isNull'];
-			var chapters=data['chapters'];
-			if(isNull==true){
-		                    $("#chapters").append("<option value=-1>"+chapters+"</option>");
-			}
-			else {
-			       $("#chapters").append("<option value=-1>--请选择课程--</option>");
-			       for(var i=0;i<chapters.length;i++){
-			       	//alert(chapters[i].name);
-			       	$("#chapters").append("<option value="+chapters[i].id+" >"+chapters[i].name+"</option>");
-			       }	      
-			       
-			}
+			alert(1);
+			console.log(data);
 		}
 	});
 }
