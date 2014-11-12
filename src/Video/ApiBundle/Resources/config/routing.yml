@@ -9,3 +9,8 @@ save_video_token:
 create_access_token:
     path:     /create/accesstoken
     defaults: { _controller: VideoApiBundle:Base:createToken }
+    methods: [POST]
+recreate_access_token:
+    path:     /recreate/accesstoken
+    defaults: { _controller: VideoApiBundle:Base:recreateToken }
+    methods: [POST]

@@ -1,9 +1,10 @@
 .DS_Store
+app/config/parameters.yml
 web/bundles/videoweb/video/*
-web/bundles/videoweb/img/*
 vendor/*
 app/cache/*
 app/logs/*
 app/AppCache.php
 app/Resources
+app/config/parameters.yml
 src/Video/CommonBundle/Resources/config/service.yml

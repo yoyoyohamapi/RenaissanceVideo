@@ -12,7 +12,9 @@ seajs.config({
     "arale-events": "arale-events/1.2.0/events.js",
     "arale-class": "arale-class/1.2.0/class.js",
     "arale-widget": "arale-widget/1.2.0/widget.js",
-
+    "selectInspiration-classie": "SelectInspiration/js/classie.js",
+    "selectInspiration-selectFx": "SelectInspiration/js/selectFx.js",
+    "polyfiller": "webshim/minified/polyfiller.js",
     'map': [
     	[ /^(.*\.(?:css|js))(.*)$/i, '$1?20140801' ]
   	],

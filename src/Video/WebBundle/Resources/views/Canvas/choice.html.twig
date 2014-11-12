@@ -1,29 +1,36 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-</head>
-<body>
-{% if courses is defined %}
-<form action="{{path('add_ex_url')}}" method="post">
-<input id="video_id" name="video_id" value="{{video_id}}" type="hidden">
-<select id="courses" name="course_id" path="{{path('find_chapters')}}">
-  <option selected value="-1">--请选择课程--</option>
-  {% for course in courses %}
- <option value="{{course.id}}">{{course.name}}</option>
-  {% endfor %}
-</select>
-<select id="chapters" name="chapter_id">
-<option selected value="-1">--请选择章节--</option>
-</select>
-课时名称
-<input id="lesson_name" name="lesson_name" type="text">
-<input id="submit" name="submit" type="submit" value="提交">
-</form>
-{% else %}
-    尚无课程可供选择!!
-{% endif %}
-</body>
-</html>
-<script type="text/javascript" src="{{asset('bundles/videoweb/js/jquery-1.11.1.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('bundles/videoweb/js/choice.js')}}"></script>
+<!-- 添加到canvas Modal -->
+<div class="modal fade" data-videoId="" id="up2canvasModal" tabindex="-1" role="dialog" aria-labelledby="up2canvasModalLabel" aria-hidden="true">
+	<div class="modal-dialog" style="width:480px;">
+	    <div class="modal-content" style="background-color:#f06d54">
+	      <div class="modal-header" style="border-bottom: 0px;">
+	        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+	        <p class="modal-title" style="text-align: center;font-size: 24px;color: #ffffff;margin-top: 20px;">上传到Canvas</p>
+	      </div>
+	      {% if courses is defined %}
+	      <div class="modal-body" style="padding:15px 30px 15px 30px;">
+	      	<div class="col-xs-12" style="margin-bottom:15px;">
+	      		<select class="cs-select cs-skin-overlay" id="courses" name="course_id" path="{{path('find_chapters')}}">
+				  <option value="-1" disabled selected>--请选择课程--</option>
+				  {% for course in courses %}
+				  <option value="{{course.id}}">{{course.name}}</option>
+				  {% endfor %}
+				</select>
+			</div>
+	      	<div class="col-xs-12" style="margin-bottom:15px;">
+      		<!-- Chapters -->
+		    {{ render(controller('VideoWebBundle:Canvas:findChapters')) }}
+			</div>
+	      	<div class="col-xs-12" style="margin-bottom:15px;">
+	   			<input id="lesson_name" type="text" placeholder="请填入课程名称" style="width:100%;font-size:1.2em;padding:5px;box-shadow: 0 10px 0 -5px rgba(0,0,0,0.1);">
+			</div>
+	      </div>
+	      {% else %}
+    		尚无课程可供选择!!
+		  {% endif %}
+	      <div class="modal-footer" style="border-top: 0px;">
+	        <button type="button" class="button button-rounded button-flat" style="background-color:#041A16;color:#ffffff" data-dismiss="modal"><i class="fa fa-times"></i></button>
+	        <button id="addToCanvas" type="button" class="button button-rounded button-flat" style="background-color:#522737;color:#ffffff"><i class="fa fa-check"></i></button>
+	      </div>
+	    </div>
+  	</div>
+</div>

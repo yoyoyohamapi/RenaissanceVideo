@@ -33,10 +33,8 @@ chapter_show:
     requirements:
               course_id: \d+
 choice:
-    path:    /choice/{video_id}
+    path:    /choice
     defaults: {_controller: VideoWebBundle:Canvas:choice }
-    requirements:
-              video_id: \d+
 
 find_chapters:
      path:   /findchapters
@@ -50,3 +48,4 @@ add_ex_url:
 to_create_token:
     path:     /tocreateToken
     defaults: { _controller: VideoWebBundle:Play:createToken }
+    methods: [POST]
