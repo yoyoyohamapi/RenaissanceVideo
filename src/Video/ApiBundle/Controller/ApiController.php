@@ -14,15 +14,24 @@ class ApiController extends BaseController
     }
 
    /**
-     * This the documentation description of your method, it will appear
-     * on a specific pane. It will read all the text until the first
-     * annotation.
-     *
-     * @ApiDoc(
-     *  resource=true,
-     *  description="存储客户购买课程的Token",
-     * )
-     */
+    * <h4>Request Parameters:<br></h4>
+    *<table border="3">
+    *  <tr>
+    *   <th>Parameter</th>
+    *   <th>Type</th>
+    *  <th>Required</th>
+    *</tr>
+    *  <tr  >
+    *    <td>video_token</td>
+    *    <td>String</td>
+    *    <td>true</td>
+    *  </tr>
+    * </table>
+    * @ApiDoc(
+    *  resource=true,
+    *  description="存储客户购买课程的Token",
+    * )
+    */
     public function saveVideoTokenAction(){
              $request=$this->getRequest();
              $headers = array();
@@ -51,15 +60,14 @@ class ApiController extends BaseController
                 $em->persist($videoToken);
                 $em->flush();
                 $response_info=array(
-                    'success'=>'insert video_token success!!'
+                    "success"=>"insert video_token success!!"
                     );
              }
              else{
                    $response_info=array(
-                    'fail'=>'you have not authoriated'
+                    "fail"=>"you have not authoriated"
                     );
              }
-             $response=new Response(json_encode($response_info));
-             return $response;
+             return $this->createJsonResponse($response_info);
     }
 }
