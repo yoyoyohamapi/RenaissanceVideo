@@ -29,8 +29,16 @@ class PlayController extends BaseController
     }
     public function showAction($video_id)
     {
+        $request=$this->getRequest();
+        $video_token=$request->request->get('video_token');
         $repos=$this->getDoctrine()->getRepository('VideoCommonBundle:Video');
         $video=$repos->find($video_id);
+        // var_dump($video_token);
+        $repos=$this->getDoctrine()->getRepository('VideoCommonBundle:VideoToken');
+        $video_token=$repos->findOneByVideoToken($video_token);
+        if($video_token==NULL){
+            return $this->render('VideoWebBundle:Error:404.html.twig', array("error_msg"=>"你尚未购买该课程!!"));
+        }
         $data=array(
             "video"=>$video,
             );

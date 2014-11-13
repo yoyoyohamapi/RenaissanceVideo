@@ -53,8 +53,14 @@ class BaseController extends Controller
 	//检查token是否合法
 	public function checkToken($access_token){
 		$repos=$this->getDoctrine()->getRepository('VideoCommonBundle:Token');
-		$access_token=$repos->findOneByAccessToken($access_token);
-		if($access_token==NULL)return false;
+		$current_time=date('Y-m-d H:i:s',time());
+		$query=$repos->createQueryBuilder('token')
+			->where('token.accessToken= :access_token and token.limitTime>=:current_time')
+			->setParameter('access_token',$access_token)
+			->setParameter('current_time',$current_time)
+			->getQuery();
+		$token=$query->getResult();
+		if($token==NULL)return false;
 		else return true;
 	}
 	//检查头部是否合法
@@ -63,7 +69,6 @@ class BaseController extends Controller
 		if($auth_head==$video_auth_head)return true;
 		else return false;
 	}
-
 	protected function createJsonResponse($data)
 	{
 	        	return new JsonResponse($data);
