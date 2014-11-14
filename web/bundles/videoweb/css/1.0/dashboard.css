@@ -15,6 +15,10 @@
 
 }
 
+#dashboard #topBar  button {
+	margin-top: 5px;
+}
+
 #dashboard #tokenList,#vfileList{
 	position: relative;
 	overflow: hidden;
@@ -43,6 +47,12 @@
 
 #dashboard #vPreview{
 	min-height: 400px;
+}
+
+#dashboard #vPreview #previewName{
+	text-align: center;
+	padding: 15px;
+	font-size: 2em;
 }
 
 #dashboard #vStatus{

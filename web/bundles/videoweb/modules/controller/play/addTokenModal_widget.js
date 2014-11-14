@@ -43,9 +43,13 @@ define(function(require,exports,module){
 					type:'post',
 					dataType:'json',
 					success:function(data){
-						if(data=="success"){
-							window.location.reload();
-						}									
+						var access_token = data.token;
+						if(access_token){
+							$("tr#new_token td#token_app").html(app_name);
+							$("tr#new_token td#token_access").html(access_token);
+							$("#addTokenModal").modal('hide');
+							$("tr#new_token").fadeIn();
+						}
 					}
 				});
 			}

@@ -29,7 +29,7 @@ class BaseController extends Controller
 			);
 		$em->persist($token);
 		$em->flush();
-		return $this->createJsonResponse('success');
+		return $this->createJsonResponse(array('token'=>$token->getAccessToken()));
 	}
 	//重新生成token
 	public function recreateTokenAction(){
@@ -48,7 +48,7 @@ class BaseController extends Controller
 		$token->setLimitTime(new \Datetime($limit_time));
 		$token->setAccessToken($access_token);
 		$em->flush();
-		return $this->createJsonResponse('success');
+		return $this->createJsonResponse(array('token'=>$token->getAccessToken()));
 	}
 	//检查token是否合法
 	public function checkToken($access_token){
