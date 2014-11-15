@@ -7,6 +7,7 @@ define(function(require,exports,module){
 			video_cover: '',
 			video_obj: '',
 			video_div: '',
+			video_name: '',
 		},
 		events:{
 
@@ -18,6 +19,7 @@ define(function(require,exports,module){
 			var video_cover = this.get('video_cover');
 			var video_obj = this.get('video_obj');
 			var video_div = this.get('video_div');
+			var video_name = this.get('video_name');
 			video_url = video_url;
 			video_cover = 'http://'+window.location.host+'/'+video_cover;
 			//Set the player
@@ -26,8 +28,10 @@ define(function(require,exports,module){
     		video_obj.ready(function() {
 		      video_obj.pause();
 		      video_obj.load();
+		      $('#previewName').html(video_name);
 			});
 		},
 	});
+
 	module.exports = VideoPreview;
 });

@@ -101,9 +101,10 @@ define(function(require, exports, module){
 		},
 		//视频预览
 		previewVideo: function(event){
-			var tr = event.currentTarget;
-			var video_url = tr.getAttribute('data-videoUrl');
-			var video_cover = tr.getAttribute('data-videoCover'); 
+			var tr = $(event.currentTarget);
+			var video_url = tr.attr('data-videoUrl');
+			var video_cover = tr.attr('data-videoCover');
+			var video_name =  tr.children("td#videoName").text();
 			if(!videoPreview){
 				videoPreview = new VideoPreview({
 					video_obj: _V_("#videoPlayer"),
@@ -112,11 +113,13 @@ define(function(require, exports, module){
 			}
 			videoPreview.set('video_url',video_url);
 			videoPreview.set('video_cover',video_cover);
+			videoPreview.set('video_name',video_name);
 			videoPreview.refresh();
 		},
 		//重新生成Token
 		recreateToken: function(event){
-			var token_id = event.currentTarget.getAttribute('data-tokenId');
+			var td = event.currentTarget;
+			var token_id = td.getAttribute('data-tokenId');
 			var path = '/api/recreate/accesstoken';
 			$.ajax({
 				url:path,
@@ -126,12 +129,13 @@ define(function(require, exports, module){
 					type:'post',
 					dataType:'json',
 					success:function(data){
-						if(data=="success"){
-							window.location.reload();
+						var access_token = data.token;
+						if(access_token){
+							$(td).parent().parent().children('td#token_access').html(access_token);
 						}
 					}
 			});
-		}
+		},
 
 	});
 	

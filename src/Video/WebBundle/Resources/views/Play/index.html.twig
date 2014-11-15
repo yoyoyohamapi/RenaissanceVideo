@@ -14,7 +14,7 @@
 			<div style="display:none">
 			{{render(controller('VideoWebBundle:File:upload'))}}
 			</div>
-			<div class="col-xs-8">
+			<div class="col-md-7 col-xs-12">
 				<div id="topBar"class="row panelBlock" style="padding-top:15px;padding-bottom:15px;">
 					<div class="col-xs-6" ><button id="upVideoBtn" class="btn btn-flat"><i class="fa fa-film" style="color:#009900;font-weight:700"></i> 上传视频</button>&nbsp&nbsp<button id="upVideoCoverBtn" type="button" class="btn btn-flat"><i class="fa fa-photo" style="color:#009900;font-weight:700"></i> 上传封面</button>&nbsp&nbsp<button id="showTokenList"type="button"class="btn btn-flat"><i class="fa fa-eye" style="color:#009900;font-weight:700"></i> 访问许可证</button></div>
 					<div class="col-xs-6">
@@ -40,12 +40,20 @@
 								{% for token in tokens %}
 						        <tr>
 						          	<td style="text-align:center;"><input type="checkbox"></td>
-						          	<td>{{token.applyName}}</td>
-						          	<td>{{token.accessToken}}</td>
-						          	<td>{{token.state}}</td>
+						          	<td id="token_app">{{token.applyName}}</td>
+						          	<td id="token_access">{{token.accessToken}}</td>
+						          	<td id="token_state">{{token.state}}</td>
 						          	<td><button id="recreateToken" data-tokenId="{{token.id}}" class="btn btn-flat" type="button" style="background-color:rgb(243, 233, 183);"><i class="fa fa-refresh" style="color:rgb(197,44,4);font-weight:700"></i> 重新生成</button></td>
 								<tr>
 								{% endfor %}
+									<tr id="new_token" style="display:none;background-color:rgb(233, 239, 233);">
+									<td style="text-align:center;">创建成功</td>
+						          	<td id="token_app"></td>									
+						          	<td id="token_access"></td>
+						          	<td id="token_state">新创建</td>
+						          	<td></td>
+								</tr>
+
 					      	</tbody>
 						</table>
 					</div>
@@ -117,7 +125,7 @@
 				    </div>
 				</div>
 			</div>
-			<div class="col-xs-4">
+			<div class="col-md-5 col-xs-12">
 				<div class="panelBlock" id="vPreview">
 					<div class="row" style="margin:0px;">
 						<div class="col-xs-12 previewBlock" style="height:300px">
@@ -128,6 +136,7 @@
 							 <source src="" type='video/mp4' />
 							</video>
 						</div>
+						<div class="col-xs-12"id="previewName">暂无预览</div>
 					</div>
 				</div>
 				<div id="vStatus"class="panelBlock">
