@@ -47,12 +47,12 @@ define(function(require, exports, module){
 				case 'form_video':
 				// 状态栏显示视频名
 					var file=document.getElementById('form_video').files[0];
-					$('#videoName').text(file.name); 
+					$('div#videoName').text(file.name); 
 					break;
 				case 'form_cover':
 				//状态栏显示封面名
 					var file=document.getElementById('form_cover').files[0];
-					$('#coverName').text(file.name);
+					$('div#coverName').text(file.name);
 					break;
 				default:break;
 
