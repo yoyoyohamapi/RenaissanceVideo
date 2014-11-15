@@ -62,8 +62,9 @@ class FileUpload
                   return $this->upload_path;
       }
       public function uploadFile($index=0){
-        $upload_name= $this->getFileName();
-        if($index!=0)$upload_name=$upload_name."(".$index.")";
+        $file_name= explode('.', $this->getFileName());
+        if($index!=0)$upload_name=$file_name[0]."(".$index.").".$file_name[1];
+        else $upload_name=$this->getFileName();
         try {
                 $this->getFile()->move(
                           $this->getUploadPath(),
@@ -75,8 +76,9 @@ class FileUpload
         }
       }
       public function getUploadUrl($index=0){
-        $upload_url= $this->getUploadPath().$this->getFileName();
-        if($index!=0)$upload_url=$upload_url."(".$index.")";
+        $file_name= explode('.', $this->getFileName());
+        if($index!=0)$upload_url=$file_name[0]."(".$index.").".$file_name[1];
+        else $upload_url=$this->getFileName();
         return $upload_url;
       }
 }
