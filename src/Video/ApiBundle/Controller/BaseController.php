@@ -9,6 +9,32 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class BaseController extends Controller
 {
+
+
+	/**现在JSON信息回调需要封装三个参数：
+	* data:回调数据
+	* status:回调状态，标示数据状态正确与否，1为成功，0为败
+	* message:回调消息，反映错误原因
+	*/
+	protected function createJsonResponse($data,$status,$message)
+	{			
+				$response = array(
+					'data'=>$data,
+					'status'=>$status,
+					'message'=>$message
+				);
+	        	return new JsonResponse($response);
+	}
+
+	//下面是Api回调Response,参照canvas,若获得资源，直接回调资源，否则返回错误信息
+	protected function createApiResponse($resource = NULL,$error_message = NULL){
+		if(!$resource)
+			$response = array('error_message'=>$error_message);
+		else
+			$response = $resource;
+		return new JsonResponse($response);
+	}
+
 	//创建token并存入数据库
 	public function createTokenAction(){
 		$request=$this->getRequest();
@@ -29,7 +55,10 @@ class BaseController extends Controller
 			);
 		$em->persist($token);
 		$em->flush();
-		return $this->createJsonResponse(array('token'=>$token->getAccessToken()));
+			$json_data = $token->getAccessToken();
+		$json_status = 1;
+		$json_message = " ";
+        return $this->createJsonResponse($json_data,$json_status,$json_message);
 	}
 	//重新生成token
 	public function recreateTokenAction(){
@@ -48,7 +77,10 @@ class BaseController extends Controller
 		$token->setLimitTime(new \Datetime($limit_time));
 		$token->setAccessToken($access_token);
 		$em->flush();
-		return $this->createJsonResponse(array('token'=>$token->getAccessToken()));
+		$json_data = $token->getAccessToken();
+		$json_status = 1;
+		$json_message = " ";
+        return $this->createJsonResponse($json_data,$json_status,$json_message);
 	}
 	//检查token是否合法
 	public function checkToken($access_token){
@@ -69,9 +101,6 @@ class BaseController extends Controller
 		if($auth_head==$video_auth_head)return true;
 		else return false;
 	}
-	protected function createJsonResponse($data)
-	{
-	        	return new JsonResponse($data);
-	}
+
 
 }

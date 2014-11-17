@@ -98,12 +98,11 @@ define(function(require,exports,module){
 					type:'post',
 					dataType:'json',
 					success:function(data){
-						if(data=="success"){
-							$("#successModal").modal('show');
-							setTimeout(function(){
-								$("#successModal").modal('hide');
-							},1000);
-						}
+						$("#infoModal .modal-content").html(data.message);
+						$("#infoModal").modal('show');
+						setTimeout(function(){
+							$("#infoModal").modal('hide');
+						},1000);
 					}
 				});
 			return;

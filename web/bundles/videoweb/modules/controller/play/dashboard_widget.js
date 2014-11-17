@@ -129,9 +129,11 @@ define(function(require, exports, module){
 					type:'post',
 					dataType:'json',
 					success:function(data){
-						var access_token = data.token;
-						if(access_token){
-							$(td).parent().parent().children('td#token_access').html(access_token);
+						if(data.status==1){
+							var access_token = data.data;
+							if(access_token){
+								$(td).parent().parent().children('td#token_access').html(access_token);
+							}
 						}
 					}
 			});

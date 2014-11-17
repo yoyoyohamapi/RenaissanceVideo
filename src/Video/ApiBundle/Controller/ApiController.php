@@ -51,6 +51,7 @@ class ApiController extends BaseController
              }   
              $access_token=$check_info[1];
              $ispass=$this->checkToken($access_token);
+             // 如果TOKEN存在，则不插入，直接回调与成功时相同的操作
              if($ispass){
                 $json_data=$GLOBALS['HTTP_RAW_POST_DATA'];
                 $data=json_decode($json_data);
@@ -68,6 +69,8 @@ class ApiController extends BaseController
                     "fail"=>"you have not authoriated"
                     );
              }
-             return $this->createJsonResponse($response_info);
+             // !!!注意，换用了新的创建json方法
+             return $this->createApiResponse($resource,$error_message);
+             // return $this->createJsonResponse($response_info);
     }
 }

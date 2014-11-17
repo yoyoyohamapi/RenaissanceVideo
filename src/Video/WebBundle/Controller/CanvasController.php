@@ -31,6 +31,9 @@ class CanvasController extends BaseController
     }
     public function addExUrlAction()
     {
+        $json_data = null;
+        $json_status = 0;
+        $json_message = "无法添加到canvas";
         $request=$this->getRequest();
         $moduleRest=$this->get('moduleRest');
         $course_id=$request->request->get('course_id');
@@ -44,6 +47,8 @@ class CanvasController extends BaseController
         	'external_url'=>$external_url,
     	);
         $moduleRest->addModuleItem($course_id,$chapter_id,$module_item);
-        return $this->createJsonResponse('success');
+        $json_status = 1;
+        $json_message = "添加成功";
+        return $this->createJsonResponse($json_data,$json_status,$json_message);
     }
 }
