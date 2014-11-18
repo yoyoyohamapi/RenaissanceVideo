@@ -36,38 +36,43 @@ class ApiController extends BaseController
              $request=$this->getRequest();
              $headers = array();
              foreach ($_SERVER as $key => $value) {
-             $headers[str_replace('_', '-', substr($key, 5))] = $value;
+                $headers[str_replace('_', '-', substr($key, 5))] = $value;
              }
              $check_info=explode(' ', $headers['AUTHORIZATION']);
              $auth_head=$check_info[0];
              $ispass=$this->checkHead($auth_head);
              if(!$ispass)
              {
-                $response_info=array(
-                    'fail'=>'the auth_head is not right!!'
-                    );
-             $response=new Response(json_encode($auth_head));
-             return $response;
+                $resource=NULL;
+                $error_message="you have not authoriated";
+                return $this->createApiResponse($resource,$error_message);
              }   
              $access_token=$check_info[1];
              $ispass=$this->checkToken($access_token);
              // 如果TOKEN存在，则不插入，直接回调与成功时相同的操作
              if($ispass){
-                $json_data=$GLOBALS['HTTP_RAW_POST_DATA'];
-                $data=json_decode($json_data);
-                $videoToken=new VideoToken();
-                $videoToken->setVideoToken($data->video_token);
-                $em=$this->getDoctrine()->getEntityManager();
-                $em->persist($videoToken);
-                $em->flush();
-                $response_info=array(
-                    "success"=>"insert video_token success!!"
-                    );
+                    $json_data=$GLOBALS['HTTP_RAW_POST_DATA'];
+                    $data=json_decode($json_data);
+                    $videoToken=new VideoToken();
+                    $video_token=$data->video_token;
+                    $videoToken->setVideoToken($video_token);
+                    $repos=$this->getDoctrine()->getRepository('VideoCommonBundle:VideoToken');
+                    $exist_videoToken=$repos->findOneByVideoToken($video_token);
+                if($exist_videoToken==NULL){
+                    $em=$this->getDoctrine()->getEntityManager();
+                    $em->persist($videoToken);
+                    $em->flush();
+                    $videoToken=$repos->findOneByVideoToken($video_token);
+                    $resource=$videoToken->getId();
+                }
+                else{
+                    $resource=$exist_videoToken->getId();
+                }
+                $error_message=NULL;
              }
              else{
-                   $response_info=array(
-                    "fail"=>"you have not authoriated"
-                    );
+                    $resource=NULL;
+                    $error_message="you have not authoriated";
              }
              // !!!注意，换用了新的创建json方法
              return $this->createApiResponse($resource,$error_message);
