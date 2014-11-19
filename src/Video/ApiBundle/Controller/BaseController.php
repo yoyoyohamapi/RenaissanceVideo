@@ -31,7 +31,7 @@ class BaseController extends Controller
 		if(!$resource)
 			$response = array('error_message'=>$error_message);
 		else
-			$response = $resource;
+			$response = array($resource);
 		return new JsonResponse($response);
 	}
 
